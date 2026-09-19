@@ -1,1237 +1,953 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
- 
-  <!-- SEO & Open Graph Metadata -->
-  <title>NeXgen Web Tech | Premium Web Development & Digital Experiences</title>
-  <meta name="description" content="NeXgen Web Tech creates modern, responsive and high-performance websites for businesses, startups, creators and personal brands.">
-  <meta property="og:title" content="NeXgen Web Tech | Premium Web Development">
-  <meta property="og:description" content="Modern, responsive and high-performance websites for businesses and creators.">
-  <meta property="og:type" content="website">
 
-  <!-- Google Fonts (Inter) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>NexGen Webtech — High-Performance Websites Engineered for Business Growth</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Lucide Icons -->
+<script src="https://unpkg.com/lucide@latest"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&amp;family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&amp;display=swap" rel="stylesheet"/>
+<script>
     tailwind.config = {
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            serif: ['"Newsreader"', 'serif'],
           },
-          colors: {
-            brand: {
-              black: '#000000',
-              card1: '#050505',
-              card2: '#080808',
-              yellow: '#FFD600',
-              yellowHover: '#FFE44D',
+          animation: {
+            marquee: 'marquee 30s linear infinite',
+          },
+          keyframes: {
+            marquee: {
+              '0%': { transform: 'translateX(0%)' },
+              '100%': { transform: 'translateX(-50%)' },
             }
           }
         }
       }
     }
   </script>
+<style>
+    /* FadeInUp Intersection Observer Reveal */
+    .fade-in-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1000ms cubic-bezier(0.16, 1, 0.3, 1), transform 1000ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .fade-in-up.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Marquee fade mask */
+    .marquee-mask {
+      mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    }
 
-  <!-- Custom CSS & Animations -->
-  <style>
-    /* Strictly prevent horizontal scrolling universally */
-    html, body { 
-      scroll-behavior: smooth; 
-      overflow-x: hidden;
-      width: 100%;
-      max-width: 100vw;
-      -webkit-font-smoothing: antialiased;
-      background-color: #000000;
+    /* Accordion Grid Transition */
+    .accordion-content {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 300ms cubic-bezier(0.4, 0, 0.2, 1);
     }
-
-    /* Scrollbar styling - Black and Yellow */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: #000000; border-left: 1px solid rgba(255, 214, 0, 0.08); }
-    ::-webkit-scrollbar-thumb { background: rgba(255, 214, 0, 0.20); border-radius: 4px; }
-    ::-webkit-scrollbar-thumb:hover { background: rgba(255, 214, 0, 0.40); }
-    
-    @keyframes float {
-      0%, 100% { transform: translateY(0) rotate(-10deg) rotateX(5deg); }
-      50% { transform: translateY(-20px) rotate(-9deg) rotateX(10deg); }
+    .accordion-content.open {
+      grid-template-rows: 1fr;
     }
-    @keyframes float-delayed {
-      0%, 100% { transform: translateY(0) rotateY(15deg) translateZ(50px); }
-      50% { transform: translateY(-15px) rotateY(12deg) translateZ(60px); }
-    }
-    @keyframes float-fast {
-      0%, 100% { transform: translateY(0) rotateY(-20deg) translateZ(80px); }
-      50% { transform: translateY(-10px) rotateY(-25deg) translateZ(90px); }
-    }
-    @keyframes shimmer {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(50%); }
-    }
-    @keyframes dash {
-      to { stroke-dashoffset: -8; }
-    }
-    
-    /* Respect prefers-reduced-motion for animations */
-    @media (prefers-reduced-motion: no-preference) {
-      .animate-float { animation: float 6s ease-in-out infinite; }
-      .animate-float-delayed { animation: float-delayed 5s ease-in-out infinite 1s; }
-      .animate-float-fast { animation: float-fast 4s ease-in-out infinite; }
-      .animate-shimmer { animation: shimmer 2.5s infinite; }
-      .animate-dash { animation: dash 1s linear infinite; }
-    }
-    
-    .perspective-1000 { perspective: 1000px; }
-    
-    /* Form Select Customization - Yellow Chevron */
-    select {
-      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23FFD600' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
-      background-position: right 0.75rem center;
-      background-repeat: no-repeat;
-      background-size: 1.25em 1.25em;
+    .accordion-content > div {
+      overflow: hidden;
     }
   </style>
-
-  <!-- Babel for JSX transpilation in the browser -->
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 </head>
-<body class="bg-brand-black text-[#FFD600] antialiased selection:bg-[#FFD600]/30 selection:text-[#FFD600] overflow-hidden">
-  
-  <!-- React Root Element -->
-  <div id="root"></div>
-
-  <!-- React Application Code -->
-  <script type="text/babel" data-type="module">
-    import React, { useState, useEffect, useRef } from 'https://esm.sh/react@18.2.0';
-    import { createRoot } from 'https://esm.sh/react-dom@18.2.0/client';
-    import { 
-      Menu, X, ArrowRight, Monitor, Smartphone, Zap, 
-      Users, CheckCircle2, ChevronRight, Mail, Instagram, 
-      MessageCircle, Code, Layers, Globe, Rocket, PenTool
-    } from 'https://esm.sh/lucide-react@0.292.0';
-
-    // --- CUSTOM HOOKS ---
-
-    // Hook for scroll reveal animations
-    const useIntersectionObserver = (options = {}) => {
-      const [isIntersecting, setIsIntersecting] = useState(false);
-      const elementRef = useRef(null);
-
-      useEffect(() => {
-        const observer = new IntersectionObserver(([entry]) => {
-          if (entry.isIntersecting) {
-            setIsIntersecting(true);
-            observer.unobserve(entry.target); // Run once
-          }
-        }, { threshold: 0.1, ...options });
-
-        const currentElement = elementRef.current;
-        if (currentElement) {
-          observer.observe(currentElement);
-        }
-
-        return () => {
-          if (currentElement) {
-            observer.unobserve(currentElement);
-          }
-        };
-      }, [options]);
-
-      return [elementRef, isIntersecting];
-    };
-
-    // --- REUSABLE COMPONENTS ---
-
-    const FadeIn = ({ children, delay = 0, className = "" }) => {
-      const [ref, isVisible] = useIntersectionObserver();
-      return (
-        <div 
-          ref={ref}
-          className={`transition-all duration-1000 ease-out ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          } ${className}`}
-          style={{ transitionDelay: `${delay}ms` }}
-        >
-          {children}
-        </div>
-      );
-    };
-
-    const SectionHeading = ({ title, subtitle, centered = false }) => (
-      <div className={`mb-10 md:mb-16 ${centered ? 'text-center' : ''}`}>
-        {subtitle && (
-          <span className="inline-block py-1 px-3 rounded-full bg-[#FFD600]/10 border border-[#FFD600]/[0.18] text-[#FFD600] text-[10px] md:text-xs font-semibold tracking-widest uppercase mb-4 pointer-events-none shadow-[0_0_10px_rgba(255,214,0,0.1)]">
-            {subtitle}
-          </span>
-        )}
-        <h2 className="text-[clamp(2rem,5vw,3.5rem)] font-bold text-[#FFD600] tracking-tight leading-[1.15]">
-          {title}
+<body class="bg-black text-white font-sans antialiased selection:bg-amber-400/20 selection:text-white overflow-x-hidden min-h-screen">
+<!-- 1. NAVIGATION BAR (Sticky & Responsive) -->
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-transparent py-5" id="navbar">
+<div class="max-w-7xl mx-auto px-6 flex items-center justify-between">
+<!-- Brand / Logo -->
+<a class="flex items-center gap-3 group focus:outline-none" href="#about">
+<img alt="NexGen Webtech" class="h-9 w-auto object-contain rounded-md transition-transform group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP-d2yAR_LQEHiIjSWXxwvrRoovHlcJsdp8fctt8XUoAWzXdYmSFXssv-mLc3b5jb2L_rfoo76Mpg5Txt5A0jKyttKynYCPIN8bIagGx231kcrCVUlumZifWFVgd5vZ6IDDoDA_2joyLw0sMPAQHMVZd0TdUsLiZO-Uju2wy7BfThxoLao92RpRswWjMR8u7htUCpamsGVPUFLMYm-QiQdKq-W0oveusiBTXjJ9wRVLL9eZL80ahdaWlnBApp_97jvK7M"/>
+</a>
+<!-- Desktop Links in Center -->
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-medium text-gray-300 hover:text-white transition-colors" href="#about">Services</a>
+<a class="text-sm font-medium text-gray-300 hover:text-white transition-colors" href="#features">Capabilities</a>
+<a class="text-sm font-medium text-gray-300 hover:text-white transition-colors" href="#pricing">Pricing</a>
+<a class="text-sm font-medium text-gray-300 hover:text-white transition-colors" href="#faq">FAQ</a>
+<a class="text-sm font-medium text-gray-300 hover:text-white transition-colors" href="#contact">Contact</a>
+</nav>
+<!-- Desktop Action Button -->
+<div class="hidden md:flex items-center">
+<a class="bg-[#1F1F22] hover:bg-[#2A2A2D] text-white text-sm font-medium px-5 py-2.5 rounded-full border border-white/10 hover:border-amber-400/40 transition-all shadow-sm active:scale-95" href="#contact">
+          Get started
+        </a>
+</div>
+<!-- Mobile Hamburger Button -->
+<button aria-label="Toggle Navigation Menu" class="md:hidden p-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/5 transition-colors focus:outline-none" id="mobileMenuBtn">
+<i class="w-6 h-6" data-lucide="menu" id="menuIcon"></i>
+<i class="w-6 h-6 hidden" data-lucide="x" id="closeIcon"></i>
+</button>
+</div>
+<!-- Mobile Dropdown Menu -->
+<div class="hidden md:hidden px-6 pt-4 pb-6 bg-black/95 backdrop-blur-xl border-b border-white/10 transition-all duration-300" id="mobileMenu">
+<div class="flex flex-col gap-4">
+<a class="nav-link text-base font-medium text-gray-300 hover:text-white py-1" href="#about">Services</a>
+<a class="nav-link text-base font-medium text-gray-300 hover:text-white py-1" href="#features">Capabilities</a>
+<a class="nav-link text-base font-medium text-gray-300 hover:text-white py-1" href="#pricing">Pricing</a>
+<a class="nav-link text-base font-medium text-gray-300 hover:text-white py-1" href="#faq">FAQ</a>
+<a class="nav-link text-base font-medium text-gray-300 hover:text-white py-1" href="#contact">Contact</a>
+<div class="pt-2">
+<a class="nav-link block text-center w-full bg-[#1F1F22] hover:bg-[#2A2A2D] text-white text-sm font-medium px-5 py-3 rounded-full border border-white/10" href="#contact">
+            Get started
+          </a>
+</div>
+</div>
+</div>
+</header>
+<!-- 2. HERO SECTION (id="about") -->
+<section class="min-h-screen flex flex-col items-center justify-center pt-32 pb-20 relative z-0 overflow-hidden" id="about">
+<!-- Background Video -->
+<div class="absolute inset-0 -z-10 overflow-hidden">
+<video autoplay="" class="w-full h-full object-cover min-w-full min-h-full opacity-90 scale-105" loop="" muted="" playsinline="">
+<source src="https://cdn.sceneai.art/Hero%20Section%20Video/50b4f304-cdca-4e12-8735-580d225834be.mp4" type="video/mp4"/>
+</video>
+<!-- Gradient Overlay -->
+<div class="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black pointer-events-none"></div>
+</div>
+<div class="max-w-7xl mx-auto px-6 flex flex-col items-center text-center w-full">
+<!-- Top Badge -->
+<div class="fade-in-up">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-gray-300 mb-8 backdrop-blur-sm shadow-sm hover:border-amber-400/30 transition-colors">
+<span>🚀 Bespoke Web Engineering &amp; Growth</span>
+</div>
+</div>
+<!-- Headline -->
+<div class="fade-in-up">
+<h1 class="text-5xl md:text-7xl font-medium tracking-tight mb-6 text-center text-white max-w-4xl leading-[1.1]">
+          Modern websites designed to grow your <span class="font-serif italic font-normal text-amber-400">business.</span>
+</h1>
+</div>
+<!-- Sub-text -->
+<div class="fade-in-up">
+<p class="text-[16px] text-gray-300 max-w-2xl text-center mb-10 leading-relaxed font-normal">
+          We engineer high-performance, bespoke websites that capture leads, elevate your brand authority, and turn everyday traffic into scalable revenue.
+        </p>
+</div>
+<!-- Action Buttons -->
+<div class="fade-in-up">
+<div class="flex flex-row items-center justify-center gap-4">
+<a class="bg-white text-black hover:bg-amber-400 text-sm font-semibold px-6 py-3 rounded-full transition-all shadow-lg hover:scale-105 active:scale-95" href="#contact">
+            Get your website
+          </a>
+<a class="bg-[#1F1F22] hover:bg-[#2A2A2D] text-white text-sm font-medium px-6 py-3 rounded-full border border-white/10 hover:border-white/20 transition-all active:scale-95" href="#features">
+            View our work
+          </a>
+</div>
+</div>
+<!-- Marquee Section -->
+<div class="w-full mt-24 fade-in-up">
+<p class="text-sm text-gray-400 font-medium mb-8 text-center">
+          Powering websites for forward-thinking businesses
+        </p>
+<!-- Marquee infinite wrapper with CSS mask fade -->
+<div class="w-full overflow-hidden marquee-mask relative py-4">
+<div class="flex w-max animate-marquee items-center gap-12 sm:gap-16">
+<!-- Brand Logos Block 1 -->
+<div class="flex items-center gap-12 sm:gap-16 flex-shrink-0">
+<!-- Springfield -->
+<div class="flex items-center gap-2.5 text-gray-400 hover:text-white transition-colors flex-shrink-0 px-4">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+</svg>
+<span class="text-base font-semibold tracking-wider uppercase text-gray-400">Springfield</span>
+</div>
+<!-- Orbitc -->
+<div class="flex items-center gap-2.5 text-gray-400 hover:text-white transition-colors flex-shrink-0 px-4">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="9"></circle>
+<ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"></ellipse>
+</svg>
+<span class="text-base font-semibold tracking-wider uppercase text-gray-400">Orbitc</span>
+</div>
+<!-- Cloud -->
+<div class="flex items-center gap-2.5 text-gray-400 hover:text-white transition-colors flex-shrink-0 px-4">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+</svg>
+<span class="text-base font-semibold tracking-wider uppercase text-gray-400">Cloud</span>
+</div>
+<!-- Amster -->
+<div class="flex items-center gap-2.5 text-gray-400 hover:text-white transition-colors flex-shrink-0 px-4">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
+<line x1="12" x2="12" y1="22" y2="12"></line>
+<line x1="22" x2="12" y1="8.5" y2="12"></line>
+<line x1="2" x2="12" y1="8.5" y2="12"></line>
+</svg>
+<span class="text-base font-semibold tracking-wider uppercase text-gray-400">Amster</span>
+</div>
+<!-- Nexus -->
+<div class="flex items-center gap-2.5 text-gray-400 hover:text-white transition-colors flex-shrink-0 px-4">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+</svg>
+<span class="text-base font-semibold tracking-wider uppercase text-gray-400">Nexus</span>
+</div>
+</div>
+<!-- Brand Logos Block 2 (Duplicate for seamless loop) -->
+<div class="flex items-center gap-12 sm:gap-16 flex-shrink-0">
+<div class="flex items-center gap-2.5 text-gray-400 flex-shrink-0 px-4">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+</svg>
+<span class="text-base font-semibold tracking-wider uppercase text-gray-400">Springfield</span>
+</div>
+<div class="flex items-center gap-2.5 text-gray-400 flex-shrink-0 px-4">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="9"></circle>
+<ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(30 12 12)"></ellipse>
+</svg>
+<span class="text-base font-semibold tracking-wider uppercase text-gray-400">Orbitc</span>
+</div>
+<div class="flex items-center gap-2.5 text-gray-400 flex-shrink-0 px-4">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+</svg>
+<span class="text-base font-semibold tracking-wider uppercase text-gray-400">Cloud</span>
+</div>
+<div class="flex items-center gap-2.5 text-gray-400 flex-shrink-0 px-4">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2"></polygon>
+<line x1="12" x2="12" y1="22" y2="12"></line>
+<line x1="22" x2="12" y1="8.5" y2="12"></line>
+<line x1="2" x2="12" y1="8.5" y2="12"></line>
+</svg>
+<span class="text-base font-semibold tracking-wider uppercase text-gray-400">Amster</span>
+</div>
+<div class="flex items-center gap-2.5 text-gray-400 flex-shrink-0 px-4">
+<svg class="w-6 h-6 stroke-current" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24">
+<circle cx="12" cy="12" r="3"></circle>
+<path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+</svg>
+<span class="text-base font-semibold tracking-wider uppercase text-gray-400">Nexus</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. FEATURE 1: HIGH-PERFORMANCE DESIGN (id="features") -->
+<section class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5 relative" id="features">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<!-- Left Text -->
+<div class="fade-in-up flex flex-col items-start">
+<div class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-amber-400 mb-4">
+<span>⚡ HIGH-PERFORMANCE DESIGN</span>
+</div>
+<h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-6 leading-tight">
+          Engineered for speed, aesthetics, and conversions.
         </h2>
+<p class="text-base text-gray-400 mb-8 leading-relaxed">
+          A slow website kills revenue. We build lightning-fast web experiences optimized for Google Core Web Vitals, seamless user journeys, and higher conversion rates.
+        </p>
+<a class="bg-[#1F1F22] hover:bg-[#2A2A2D] text-white text-sm font-medium px-6 py-3 rounded-full border border-white/10 hover:border-amber-400/40 transition-all active:scale-95 shadow-sm" href="#contact">
+          Explore our build process
+        </a>
+</div>
+<!-- Right Mockup -->
+<div class="fade-in-up">
+<div class="rounded-3xl overflow-hidden p-6 sm:p-8 border border-white/10 relative min-h-[460px] sm:min-h-[500px] flex items-center justify-center bg-black/60 shadow-2xl">
+<!-- Background Video -->
+<video autoplay="" class="absolute inset-0 object-cover w-full h-full opacity-80" loop="" muted="" playsinline="">
+<source src="https://cdn.sceneai.art/Hero%20Section%20Video/1bcc8fa3-37f6-4c53-8591-0347e4c7f8ac.mp4" type="video/mp4"/>
+</video>
+<div class="absolute inset-0 bg-black/30 backdrop-blur-[2px]"></div>
+<!-- Floating Performance UI Card -->
+<div class="relative z-10 w-full max-w-md bg-[#1C1C1E]/90 backdrop-blur-xl border border-white/15 rounded-2xl p-5 shadow-2xl space-y-4">
+<!-- Header chips -->
+<div class="flex items-center gap-2 overflow-x-auto pb-1 text-xs">
+<span class="px-3 py-1.5 rounded-full bg-amber-400/20 text-amber-300 font-medium flex items-center gap-1.5 border border-amber-400/30 flex-shrink-0">
+<i class="w-3.5 h-3.5" data-lucide="gauge"></i> 99/100 Lighthouse
+              </span>
+<span class="px-3 py-1.5 rounded-full bg-white/5 text-gray-300 font-medium border border-white/10 flex-shrink-0">
+                &lt; 0.4s LCP Speed
+              </span>
+<span class="px-3 py-1.5 rounded-full bg-white/5 text-gray-300 font-medium border border-white/10 flex-shrink-0">
+                SEO 100%
+              </span>
+</div>
+<!-- Performance Dashboard Sample -->
+<div class="space-y-3 pt-2">
+<div class="bg-black/60 rounded-xl p-4 border border-white/10 space-y-2.5">
+<div class="flex items-center justify-between text-xs">
+<span class="text-gray-300 font-medium flex items-center gap-2">
+<i class="w-4 h-4 text-amber-400" data-lucide="zap"></i> Core Web Vitals Status
+                  </span>
+<span class="text-emerald-400 font-mono text-[11px] bg-emerald-400/10 px-2 py-0.5 rounded border border-emerald-400/20">ALL PASSED</span>
+</div>
+<!-- Metric Bars -->
+<div class="space-y-1.5 pt-1">
+<div class="flex justify-between text-[11px] text-gray-400">
+<span>Performance Score</span>
+<span class="text-white font-semibold">99%</span>
+</div>
+<div class="w-full bg-white/10 rounded-full h-1.5 overflow-hidden">
+<div class="bg-gradient-to-r from-amber-400 to-emerald-400 h-1.5 rounded-full w-[99%]"></div>
+</div>
+</div>
+<div class="space-y-1.5 pt-1">
+<div class="flex justify-between text-[11px] text-gray-400">
+<span>Mobile Conversion Velocity</span>
+<span class="text-amber-400 font-semibold">+3.4x avg</span>
+</div>
+<div class="w-full bg-white/10 rounded-full h-1.5 overflow-hidden">
+<div class="bg-amber-400 h-1.5 rounded-full w-[88%]"></div>
+</div>
+</div>
+</div>
+<!-- Live Test Result Banner -->
+<div class="flex items-start gap-3 bg-white/5 border border-white/10 rounded-xl p-3">
+<div class="w-7 h-7 rounded-lg bg-amber-400/20 text-amber-400 flex items-center justify-center flex-shrink-0 text-xs">
+<i class="w-4 h-4" data-lucide="check-circle-2"></i>
+</div>
+<div class="text-xs text-gray-300 leading-relaxed">
+<span class="text-white font-semibold">Zero Bloat Architecture:</span> Pure Tailwind CSS, clean semantic layout, and edge caching for instant worldwide load times.
+                </div>
+</div>
+</div>
+<!-- Status Footer -->
+<div class="pt-1 flex items-center justify-between text-[11px] text-gray-400 border-t border-white/10">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Production Audit Active</span>
+<span class="font-mono text-gray-400">Next.js + Vercel Edge</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. FEATURE 2: GROWTH ARCHITECTURE -->
+<section class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5 relative">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<!-- Left Mockup -->
+<div class="order-2 lg:order-1 fade-in-up">
+<div class="rounded-3xl overflow-hidden p-6 sm:p-8 border border-white/10 relative min-h-[460px] sm:min-h-[500px] flex items-center justify-center bg-black/60 shadow-2xl">
+<!-- Background Video -->
+<video autoplay="" class="absolute inset-0 object-cover w-full h-full opacity-80" loop="" muted="" playsinline="">
+<source src="https://cdn.sceneai.art/Hero%20Section%20Video/736fd4a0-70ac-4f44-9633-55769ead6aca.mp4" type="video/mp4"/>
+</video>
+<div class="absolute inset-0 bg-black/30 backdrop-blur-[2px]"></div>
+<!-- Floating UI Element: Growth Funnel -->
+<div class="relative z-10 w-full max-w-md bg-[#1C1C1E]/90 backdrop-blur-xl border border-white/15 rounded-2xl p-5 shadow-2xl space-y-4">
+<!-- Growth Header -->
+<div class="flex items-center justify-between pb-2 border-b border-white/10">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-amber-400 text-black flex items-center justify-center font-bold">
+<i class="w-5 h-5" data-lucide="trending-up"></i>
+</div>
+<div>
+<div class="text-xs font-semibold text-white">Conversion &amp; Lead Engine</div>
+<div class="text-[11px] text-gray-400">Real-Time Funnel Analytics</div>
+</div>
+</div>
+<span class="text-[11px] font-mono text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded border border-emerald-400/20">+142% MoM</span>
+</div>
+<!-- Metric Waveform / Bar Chart -->
+<div class="py-2 flex items-end justify-between gap-1.5 h-16 px-1 border-b border-white/5 pb-3">
+<div class="w-2 bg-white/20 rounded-full h-4"></div>
+<div class="w-2 bg-white/30 rounded-full h-6"></div>
+<div class="w-2 bg-white/40 rounded-full h-8"></div>
+<div class="w-2 bg-amber-400/70 rounded-full h-10"></div>
+<div class="w-2 bg-amber-400/80 rounded-full h-7"></div>
+<div class="w-2 bg-amber-400 rounded-full h-12"></div>
+<div class="w-2 bg-amber-400 rounded-full h-14"></div>
+<div class="w-2 bg-emerald-400 rounded-full h-16 animate-pulse"></div>
+<div class="w-2 bg-emerald-400 rounded-full h-13"></div>
+<div class="w-2 bg-emerald-400 rounded-full h-15"></div>
+<div class="w-2 bg-emerald-400 rounded-full h-16"></div>
+</div>
+<!-- Inbound Leads Box -->
+<div class="bg-black/60 rounded-xl p-3.5 border border-white/10 space-y-2">
+<div class="flex items-center justify-between">
+<span class="text-[11px] text-gray-400 uppercase tracking-wider font-mono">Incoming Inquiries</span>
+<span class="text-[11px] text-amber-400">Captured in CRM</span>
+</div>
+<div class="space-y-2">
+<div class="flex items-center justify-between text-xs bg-white/5 px-2.5 py-1.5 rounded-lg border border-white/5">
+<span class="text-white font-medium">Enterprise Retainer ($14k)</span>
+<span class="text-emerald-400 font-mono text-[11px]">Booked Demo</span>
+</div>
+<div class="flex items-center justify-between text-xs bg-white/5 px-2.5 py-1.5 rounded-lg border border-white/5">
+<span class="text-white font-medium">SaaS Replatform Project</span>
+<span class="text-amber-300 font-mono text-[11px]">Qualified Lead</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Text -->
+<div class="order-1 lg:order-2 fade-in-up flex flex-col items-start">
+<div class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-amber-400 mb-4">
+<span>📈 GROWTH ARCHITECTURE</span>
+</div>
+<h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-6 leading-tight">
+          Turn traffic into paying clients with purpose-built funnels.
+        </h2>
+<p class="text-base text-gray-400 mb-8 leading-relaxed">
+          Your website is your best 24/7 salesperson. We architect intuitive UX, magnetic landing pages, and frictionless checkout/lead capture workflows that drive measurable revenue.
+        </p>
+<a class="bg-[#1F1F22] hover:bg-[#2A2A2D] text-white text-sm font-medium px-6 py-3 rounded-full border border-white/10 hover:border-amber-400/40 transition-all active:scale-95 shadow-sm" href="#contact">
+          Start your project
+        </a>
+</div>
+</div>
+</section>
+<!-- 5. PLANS & PRICING SECTION (id="pricing") -->
+<section class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5 relative" id="pricing">
+<div class="text-center max-w-3xl mx-auto mb-16 fade-in-up">
+<div class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-amber-400 mb-4">
+<span>💎 PLANS &amp; PRICING</span>
+</div>
+<h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-5 leading-tight">
+      Premium Digital Solutions.
+    </h2>
+<p class="text-base text-gray-400 leading-relaxed">
+      Transparent, competitive pricing designed for ambitious businesses, startups, and modern brands looking to scale.
+    </p>
+</div>
+<!-- Pricing Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Card 01: Business Websites (Most Popular) -->
+<div class="fade-in-up relative rounded-2xl bg-[#121214] border border-amber-400/40 p-7 flex flex-col justify-between hover:border-amber-400 transition-all duration-300 shadow-xl group hover:-translate-y-1">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/40 flex items-center gap-1">
+<i class="w-3 h-3 fill-amber-300" data-lucide="star"></i> MOST POPULAR
+            </span>
+<span class="text-xl font-mono text-zinc-600 font-bold">01</span>
+</div>
+<h3 class="text-2xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors">Business Websites</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-6">
+            Professional websites designed to establish credibility and help businesses grow online.
+          </p>
+</div>
+<div class="pt-6 border-t border-white/10">
+<div class="text-xs uppercase tracking-wider font-semibold text-gray-400 mb-1">STARTING AT</div>
+<div class="text-3xl font-bold text-amber-400 mb-6 font-mono">₹7,999</div>
+<a class="w-full inline-flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-black font-semibold text-sm py-3 px-5 rounded-xl transition-all shadow-md active:scale-95" href="#contact">
+            GET A QUOTE <i class="w-4 h-4" data-lucide="arrow-right"></i>
+</a>
+</div>
+</div>
+<!-- Card 02: Restaurant & Café -->
+<div class="fade-in-up relative rounded-2xl bg-[#121214] border border-white/10 p-7 flex flex-col justify-between hover:border-amber-400/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-amber-400">
+<i class="w-4 h-4" data-lucide="utensils"></i>
+</div>
+<span class="text-xl font-mono text-zinc-600 font-bold">02</span>
+</div>
+<h3 class="text-2xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors">Restaurant &amp; Café</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-6">
+            Beautiful digital experiences for restaurants, cafes and food businesses with interactive menus.
+          </p>
+</div>
+<div class="pt-6 border-t border-white/10">
+<div class="text-xs uppercase tracking-wider font-semibold text-gray-400 mb-1">STARTING AT</div>
+<div class="text-3xl font-bold text-amber-400 mb-6 font-mono">₹8,999</div>
+<a class="w-full inline-flex items-center justify-center gap-2 bg-[#1F1F22] hover:bg-[#2A2A2D] text-white hover:text-amber-300 font-medium text-sm py-3 px-5 rounded-xl border border-white/10 hover:border-amber-400/40 transition-all active:scale-95" href="#contact">
+            GET A QUOTE <i class="w-4 h-4" data-lucide="arrow-right"></i>
+</a>
+</div>
+</div>
+<!-- Card 03: Landing Pages -->
+<div class="fade-in-up relative rounded-2xl bg-[#121214] border border-white/10 p-7 flex flex-col justify-between hover:border-amber-400/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-amber-400">
+<i class="w-4 h-4" data-lucide="rocket"></i>
+</div>
+<span class="text-xl font-mono text-zinc-600 font-bold">03</span>
+</div>
+<h3 class="text-2xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors">Landing Pages</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-6">
+            High-converting landing pages designed around a clear business goal and lead conversion.
+          </p>
+</div>
+<div class="pt-6 border-t border-white/10">
+<div class="text-xs uppercase tracking-wider font-semibold text-gray-400 mb-1">STARTING AT</div>
+<div class="text-3xl font-bold text-amber-400 mb-6 font-mono">₹4,999</div>
+<a class="w-full inline-flex items-center justify-center gap-2 bg-[#1F1F22] hover:bg-[#2A2A2D] text-white hover:text-amber-300 font-medium text-sm py-3 px-5 rounded-xl border border-white/10 hover:border-amber-400/40 transition-all active:scale-95" href="#contact">
+            GET A QUOTE <i class="w-4 h-4" data-lucide="arrow-right"></i>
+</a>
+</div>
+</div>
+<!-- Card 04: Portfolio Websites -->
+<div class="fade-in-up relative rounded-2xl bg-[#121214] border border-white/10 p-7 flex flex-col justify-between hover:border-amber-400/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-amber-400">
+<i class="w-4 h-4" data-lucide="briefcase"></i>
+</div>
+<span class="text-xl font-mono text-zinc-600 font-bold">04</span>
+</div>
+<h3 class="text-2xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors">Portfolio Websites</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-6">
+            Elegant personal and professional portfolios designed to showcase your work and attract high-tier clients.
+          </p>
+</div>
+<div class="pt-6 border-t border-white/10">
+<div class="text-xs uppercase tracking-wider font-semibold text-gray-400 mb-1">STARTING AT</div>
+<div class="text-3xl font-bold text-amber-400 mb-6 font-mono">₹5,999</div>
+<a class="w-full inline-flex items-center justify-center gap-2 bg-[#1F1F22] hover:bg-[#2A2A2D] text-white hover:text-amber-300 font-medium text-sm py-3 px-5 rounded-xl border border-white/10 hover:border-amber-400/40 transition-all active:scale-95" href="#contact">
+            GET A QUOTE <i class="w-4 h-4" data-lucide="arrow-right"></i>
+</a>
+</div>
+</div>
+<!-- Card 05: Website Redesign -->
+<div class="fade-in-up relative rounded-2xl bg-[#121214] border border-white/10 p-7 flex flex-col justify-between hover:border-amber-400/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-amber-400">
+<i class="w-4 h-4" data-lucide="refresh-cw"></i>
+</div>
+<span class="text-xl font-mono text-zinc-600 font-bold">05</span>
+</div>
+<h3 class="text-2xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors">Website Redesign</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-6">
+            Transform outdated websites into modern, responsive and engaging digital experiences that convert.
+          </p>
+</div>
+<div class="pt-6 border-t border-white/10">
+<div class="text-xs uppercase tracking-wider font-semibold text-gray-400 mb-1">STARTING AT</div>
+<div class="text-3xl font-bold text-amber-400 mb-6 font-mono">₹7,999</div>
+<a class="w-full inline-flex items-center justify-center gap-2 bg-[#1F1F22] hover:bg-[#2A2A2D] text-white hover:text-amber-300 font-medium text-sm py-3 px-5 rounded-xl border border-white/10 hover:border-amber-400/40 transition-all active:scale-95" href="#contact">
+            GET A QUOTE <i class="w-4 h-4" data-lucide="arrow-right"></i>
+</a>
+</div>
+</div>
+<!-- Card 06: Custom Web -->
+<div class="fade-in-up relative rounded-2xl bg-[#121214] border border-white/10 p-7 flex flex-col justify-between hover:border-amber-400/40 transition-all duration-300 shadow-xl group hover:-translate-y-1">
+<div>
+<div class="flex items-center justify-between mb-4">
+<div class="w-8 h-8 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-amber-400">
+<i class="w-4 h-4" data-lucide="code-2"></i>
+</div>
+<span class="text-xl font-mono text-zinc-600 font-bold">06</span>
+</div>
+<h3 class="text-2xl font-semibold text-white mb-2 group-hover:text-amber-400 transition-colors">Custom Web</h3>
+<p class="text-sm text-gray-400 leading-relaxed mb-6">
+            Unique interactive websites tailored specifically to your brand, integrations, and business workflow.
+          </p>
+</div>
+<div class="pt-6 border-t border-white/10">
+<div class="text-xs uppercase tracking-wider font-semibold text-gray-400 mb-1">STARTING AT</div>
+<div class="text-3xl font-bold text-amber-400 mb-6 font-mono">₹14,999+</div>
+<a class="w-full inline-flex items-center justify-center gap-2 bg-[#1F1F22] hover:bg-[#2A2A2D] text-white hover:text-amber-300 font-medium text-sm py-3 px-5 rounded-xl border border-white/10 hover:border-amber-400/40 transition-all active:scale-95" href="#contact">
+            GET A QUOTE <i class="w-4 h-4" data-lucide="arrow-right"></i>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. FAQ SECTION (id="faq") -->
+<section class="py-32 px-6 max-w-3xl mx-auto" id="faq">
+<div class="fade-in-up text-center">
+<h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-12 text-center">
+        We've got answers
+      </h2>
+</div>
+<!-- Accordion Wrapper with border and transparency -->
+<div class="fade-in-up border border-white/10 rounded-xl bg-transparent divide-y divide-white/10 overflow-hidden">
+<!-- Item 1 -->
+<div class="accordion-item">
+<button class="accordion-header w-full py-6 px-6 flex items-center justify-between text-left focus:outline-none group" type="button">
+<span class="text-base text-white font-medium group-hover:text-amber-400 transition-colors">
+            How long does a custom website build usually take?
+          </span>
+<span class="accordion-icon ml-4 flex-shrink-0 w-6 h-6 flex items-center justify-center text-gray-400 group-hover:text-white transition-transform duration-300">
+<i class="w-5 h-5" data-lucide="plus"></i>
+</span>
+</button>
+<div class="accordion-content">
+<div>
+<p class="text-gray-400 text-sm pb-6 px-6 leading-relaxed">
+              Typically 2 to 4 weeks depending on scope, design fidelity, and integration requirements. We utilize modern component systems and agile sprints to guarantee rapid turnarounds without cutting corners.
+            </p>
+</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="accordion-item">
+<button class="accordion-header w-full py-6 px-6 flex items-center justify-between text-left focus:outline-none group" type="button">
+<span class="text-base text-white font-medium group-hover:text-amber-400 transition-colors">
+            Will our website be optimized for SEO and mobile devices?
+          </span>
+<span class="accordion-icon ml-4 flex-shrink-0 w-6 h-6 flex items-center justify-center text-gray-400 group-hover:text-white transition-transform duration-300">
+<i class="w-5 h-5" data-lucide="plus"></i>
+</span>
+</button>
+<div class="accordion-content">
+<div>
+<p class="text-gray-400 text-sm pb-6 px-6 leading-relaxed">
+              Absolutely. Every build is 100% mobile-responsive, adheres to clean semantics, and is pre-optimized for technical SEO, OpenGraph metadata, and lightning-fast search engine indexing.
+            </p>
+</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="accordion-item">
+<button class="accordion-header w-full py-6 px-6 flex items-center justify-between text-left focus:outline-none group" type="button">
+<span class="text-base text-white font-medium group-hover:text-amber-400 transition-colors">
+            Can we update content and manage the site ourselves?
+          </span>
+<span class="accordion-icon ml-4 flex-shrink-0 w-6 h-6 flex items-center justify-center text-gray-400 group-hover:text-white transition-transform duration-300">
+<i class="w-5 h-5" data-lucide="plus"></i>
+</span>
+</button>
+<div class="accordion-content">
+<div>
+<p class="text-gray-400 text-sm pb-6 px-6 leading-relaxed">
+              Yes, we build intuitive CMS capabilities and provide thorough walkthroughs and recorded video training so your team can effortlessly publish blogs, edit pages, and launch new offers.
+            </p>
+</div>
+</div>
+</div>
+<!-- Item 4 -->
+<div class="accordion-item">
+<button class="accordion-header w-full py-6 px-6 flex items-center justify-between text-left focus:outline-none group" type="button">
+<span class="text-base text-white font-medium group-hover:text-amber-400 transition-colors">
+            What tech stack do you use to build websites?
+          </span>
+<span class="accordion-icon ml-4 flex-shrink-0 w-6 h-6 flex items-center justify-center text-gray-400 group-hover:text-white transition-transform duration-300">
+<i class="w-5 h-5" data-lucide="plus"></i>
+</span>
+</button>
+<div class="accordion-content">
+<div>
+<p class="text-gray-400 text-sm pb-6 px-6 leading-relaxed">
+              We leverage modern technologies like React, Next.js, Tailwind CSS, and headless architectures for maximum speed, security, and scalability — avoiding bulky plugins or outdated monolithic code.
+            </p>
+</div>
+</div>
+</div>
+<!-- Item 5 -->
+<div class="accordion-item">
+<button class="accordion-header w-full py-6 px-6 flex items-center justify-between text-left focus:outline-none group" type="button">
+<span class="text-base text-white font-medium group-hover:text-amber-400 transition-colors">
+            Do you offer post-launch maintenance and growth support?
+          </span>
+<span class="accordion-icon ml-4 flex-shrink-0 w-6 h-6 flex items-center justify-center text-gray-400 group-hover:text-white transition-transform duration-300">
+<i class="w-5 h-5" data-lucide="plus"></i>
+</span>
+</button>
+<div class="accordion-content">
+<div>
+<p class="text-gray-400 text-sm pb-6 px-6 leading-relaxed">
+              Yes, we provide ongoing retainer support, speed monitoring, conversion optimization, and security updates so your web presence continuously improves and drives results as your company scales.
+            </p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. CONTACT SECTION (id="contact") -->
+<section class="py-24 px-6 max-w-7xl mx-auto border-t border-white/5 relative" id="contact">
+<div class="max-w-3xl mb-16 fade-in-up">
+<div class="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-amber-400 mb-4">
+<span>📬 GET IN TOUCH</span>
+</div>
+<h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-5 leading-tight">
+      Let's build something great.
+    </h2>
+<p class="text-base text-gray-400 leading-relaxed">
+      Have an upcoming project, redesign idea, or need consultation? Reach out and we'll get back to you within 24 hours with an actionable roadmap.
+    </p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+<!-- Left Column: Contact Details & Studio Info -->
+<div class="lg:col-span-5 space-y-6 fade-in-up">
+<div class="bg-[#121214] border border-white/10 rounded-2xl p-7 space-y-6">
+<div class="flex items-center gap-3 pb-6 border-b border-white/10">
+<img alt="NexGen Web Tech" class="h-10 w-auto object-contain rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDt8irzxkBkb0OXyvQvvN0wDE8vnmtE3l9ZPugAyIUxWF8XH9l1JZrItPcUNG1n7JO2fh3Zh9OznjJuGwFwtb4Yvbl04kgcqwI8599LSQn0cqB1kSQBzW8IxN8A9zM-HZ6trR3DN_rNGACecZxAMTV1FFcl44H_AOtXdiqN7nZQeJScX-2M-k2JXOKvFPaRsmcdkmyeyKZL4ZziyiT9qqLu5MXcGBwdX5fTIXqCGgu3UTpywOonvQOf9x8Vemmi3xzWk-w"/>
+<div>
+<h3 class="text-base font-semibold text-white">NexGen Web Tech</h3>
+<p class="text-xs text-amber-400 font-medium">Bespoke Web Studio</p>
+</div>
+</div>
+<!-- Email Card -->
+<a class="flex items-start gap-4 group p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10" href="mailto:all.in.one.hub899@gmail.com">
+<div class="w-10 h-10 rounded-xl bg-amber-400/10 border border-amber-400/20 text-amber-400 flex items-center justify-center flex-shrink-0 group-hover:bg-amber-400 group-hover:text-black transition-all">
+<i class="w-5 h-5" data-lucide="mail"></i>
+</div>
+<div class="overflow-hidden">
+<div class="text-xs font-semibold uppercase tracking-wider text-gray-400">Email Us</div>
+<div class="text-sm font-medium text-white group-hover:text-amber-400 transition-colors break-all">all.in.one.hub899@gmail.com</div>
+<div class="text-xs text-gray-400 mt-0.5">Direct project inquiries &amp; RFP</div>
+</div>
+</a>
+<!-- WhatsApp Card -->
+<a class="flex items-start gap-4 group p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10" href="https://wa.me/918293635157" rel="noreferrer" target="_blank">
+<div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-400 group-hover:text-black transition-all">
+<i class="w-5 h-5" data-lucide="phone"></i>
+</div>
+<div>
+<div class="text-xs font-semibold uppercase tracking-wider text-gray-400">WhatsApp</div>
+<div class="text-sm font-medium text-white group-hover:text-emerald-400 transition-colors font-mono">+91 82936 35157</div>
+<div class="text-xs text-gray-400 mt-0.5">Message us directly for a quick response</div>
+</div>
+</a>
+<!-- Instagram Card -->
+<a class="flex items-start gap-4 group p-3 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-white/10" href="https://instagram.com/web_developer.ui" rel="noreferrer" target="_blank">
+<div class="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 text-pink-400 flex items-center justify-center flex-shrink-0 group-hover:bg-pink-500 group-hover:text-black transition-all">
+<i class="w-5 h-5" data-lucide="instagram"></i>
+</div>
+<div>
+<div class="text-xs font-semibold uppercase tracking-wider text-gray-400">Instagram</div>
+<div class="text-sm font-medium text-white group-hover:text-pink-400 transition-colors font-mono">@web_developer.ui</div>
+<div class="text-xs text-gray-400 mt-0.5">Follow our latest work and studio updates</div>
+</div>
+</a>
+</div>
+<!-- Trust Card -->
+<div class="p-5 rounded-2xl bg-white/[0.02] border border-white/10 flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-amber-400/20 text-amber-400 flex items-center justify-center flex-shrink-0">
+<i class="w-5 h-5" data-lucide="clock"></i>
+</div>
+<div class="text-xs text-gray-300">
+<span class="text-white font-medium">Fast Turnarounds:</span> Proposals and estimates prepared in under 24 hours.
       </div>
-    );
+</div>
+</div>
+<!-- Right Column: Interactive Form -->
+<div class="lg:col-span-7 fade-in-up">
+<form class="bg-[#121214] border border-white/10 rounded-2xl p-7 sm:p-9 space-y-5 shadow-2xl" onsubmit="event.preventDefault(); alert('Thank you! Your request has been received. We will contact you shortly.');">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+<div>
+<label class="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2" for="contact-name">Your Name</label>
+<input class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-colors" id="contact-name" placeholder="John Doe" required="" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2" for="contact-email">Email Address</label>
+<input class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-colors" id="contact-email" placeholder="john@example.com" required="" type="email"/>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+<div>
+<label class="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2" for="contact-company">Business / Brand</label>
+<input class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-colors" id="contact-company" placeholder="Your Company Name" type="text"/>
+</div>
+<div>
+<label class="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2" for="contact-type">Project Type</label>
+<div class="relative">
+<select class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-colors appearance-none pr-10 cursor-pointer" id="contact-type" required="">
+<option class="bg-[#121214] text-white" value="business">Business Website (₹7,999)</option>
+<option class="bg-[#121214] text-white" value="restaurant">Restaurant &amp; Café (₹8,999)</option>
+<option class="bg-[#121214] text-white" value="landing">Landing Page (₹4,999)</option>
+<option class="bg-[#121214] text-white" value="portfolio">Portfolio Website (₹5,999)</option>
+<option class="bg-[#121214] text-white" value="redesign">Website Redesign (₹7,999)</option>
+<option class="bg-[#121214] text-white" value="custom">Custom Web (₹14,999+)</option>
+</select>
+<div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-3 text-gray-400">
+<i class="w-4 h-4" data-lucide="chevron-down"></i>
+</div>
+</div>
+</div>
+</div>
+<div>
+<label class="block text-xs font-semibold uppercase tracking-wider text-gray-300 mb-2" for="contact-message">Project Details &amp; Requirements</label>
+<textarea class="w-full bg-black/60 border border-white/10 rounded-xl px-4 py-3 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition-colors resize-none" id="contact-message" placeholder="Tell us about your goals, features you need, timeline, or current site URL..." required="" rows="4"></textarea>
+</div>
+<button class="w-full inline-flex items-center justify-center gap-2 bg-amber-400 hover:bg-amber-300 text-black font-semibold text-sm py-3.5 px-6 rounded-xl transition-all shadow-lg hover:shadow-amber-400/20 active:scale-95 cursor-pointer" type="submit">
+          Send Project Request <i class="w-4 h-4" data-lucide="arrow-right"></i>
+</button>
+<p class="text-center text-xs text-gray-400 pt-1">
+          🔒 No spam guaranteed. We respect your privacy and reply promptly.
+        </p>
+</form>
+</div>
+</div>
+</section>
+<!-- 8. FOOTER SECTION -->
+<footer class="relative z-0 pt-32 pb-10 px-6 border-t border-white/5 overflow-hidden">
+<!-- Background Video -->
+<div class="absolute inset-0 -z-10 overflow-hidden">
+<video autoplay="" class="absolute inset-0 object-cover w-full h-full opacity-40" loop="" muted="" playsinline="">
+<source src="https://cdn.sceneai.art/Hero%20Section%20Video/50b4f304-cdca-4e12-8735-580d225834be.mp4" type="video/mp4"/>
+</video>
+<!-- Strong overlay for legibility -->
+<div class="absolute inset-0 bg-gradient-to-b from-black via-black/70 to-black"></div>
+</div>
+<div class="max-w-7xl mx-auto">
+<!-- Top CTA -->
+<div class="fade-in-up text-center mb-32">
+<h2 class="text-4xl md:text-6xl font-medium tracking-tight text-white mb-8">
+          Ready to elevate your <span class="font-serif italic font-normal text-amber-400">business online?</span>
+</h2>
+<div class="flex flex-row items-center justify-center gap-4">
+<a class="bg-white text-black hover:bg-amber-400 text-sm font-semibold px-7 py-3.5 rounded-full transition-all shadow-lg hover:scale-105 active:scale-95" href="#contact">
+            Build your website
+          </a>
+<a class="bg-[#1F1F22] hover:bg-[#2A2A2D] text-white text-sm font-medium px-7 py-3.5 rounded-full border border-white/10 hover:border-amber-400/30 transition-all active:scale-95" href="#pricing">
+            View pricing plans
+          </a>
+</div>
+</div>
+<!-- Link Grid -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-10 max-w-7xl mx-auto mb-24">
+<!-- Col 1: Brand -->
+<div class="space-y-4">
+<div class="flex items-center gap-3">
+<img alt="NexGen Web Tech" class="h-10 w-auto object-contain rounded-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDRbnPRx5dCfjsMhSDckUukcAhABUv__Dw_L2qbLPtra0UvBSIJM75rrkjQyRdE86sr6uMThZVmMKxHbt9lMgzvgKvOqfKh1jQK3w8DKP4exdIuQbkYgCq9pgwGpguLjFrZCwcNsrlZ1aujRmFk6iQdP1w-K4n2OgJxsp-f65IojGES475HCTaAHbLGGxCxBcm0lmc-rf_owPh5rERN9KONa_Pp38SviAitu6rr4YSk27oLNTmK-EuH-VrLBut15m3MrJA"/>
+</div>
+<p class="text-sm text-gray-400 max-w-xs leading-relaxed">
+            NexGen Web Tech — Building modern digital experiences for the next generation. High-performance websites engineered for business growth.
+          </p>
+</div>
+<!-- Col 2: Services / Navigation -->
+<div>
+<h4 class="text-xs font-semibold text-white uppercase tracking-wider mb-4">Quick Links</h4>
+<ul class="space-y-3">
+<li><a class="text-sm text-gray-400 hover:text-white transition-colors" href="#about">Home</a></li>
+<li><a class="text-sm text-gray-400 hover:text-white transition-colors" href="#features">Services &amp; Process</a></li>
+<li><a class="text-sm text-gray-400 hover:text-white transition-colors" href="#pricing">Plans &amp; Pricing</a></li>
+<li><a class="text-sm text-gray-400 hover:text-white transition-colors" href="#contact">Get in Touch</a></li>
+</ul>
+</div>
+<!-- Col 3: Legal -->
+<div>
+<h4 class="text-xs font-semibold text-white uppercase tracking-wider mb-4">Legal</h4>
+<ul class="space-y-3">
+<li><a class="text-sm text-gray-400 hover:text-white transition-colors" href="#faq">Terms of service</a></li>
+<li><a class="text-sm text-gray-400 hover:text-white transition-colors" href="#faq">Privacy policy</a></li>
+<li><a class="text-sm text-gray-400 hover:text-white transition-colors" href="#faq">SLA Agreement</a></li>
+</ul>
+</div>
+<!-- Col 4: Connect -->
+<div>
+<h4 class="text-xs font-semibold text-white uppercase tracking-wider mb-4">Connect</h4>
+<ul class="space-y-3">
+<li><a class="text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-2" href="https://instagram.com/web_developer.ui" rel="noreferrer" target="_blank"><i class="w-4 h-4 text-pink-400" data-lucide="instagram"></i> Instagram</a></li>
+<li><a class="text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-2" href="https://wa.me/918293635157" rel="noreferrer" target="_blank"><i class="w-4 h-4 text-emerald-400" data-lucide="phone"></i> WhatsApp</a></li>
+<li><a class="text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-2" href="mailto:all.in.one.hub899@gmail.com"><i class="w-4 h-4 text-amber-400" data-lucide="mail"></i> Email Us</a></li>
+<li><a class="text-sm text-gray-400 hover:text-white transition-colors flex items-center gap-2" href="#contact"><i class="w-4 h-4 text-sky-400" data-lucide="send"></i> Custom Quote</a></li>
+</ul>
+</div>
+</div>
+<!-- Bottom Bar -->
+<div class="border-t border-white/5 pt-8">
+<div class="flex flex-col md:flex-row justify-center items-center gap-4 text-xs text-gray-500 text-center">
+<span>© 2026 NexGen Web Tech. All rights reserved</span>
+<span class="hidden md:inline">•</span>
+<span>Building modern digital experiences for the next generation</span>
+<span class="hidden md:inline">•</span>
+<span>Built with precision</span>
+</div>
+</div>
+</div>
+</footer>
+<!-- Interactivity Scripts -->
+<script>
+    // Initialize Lucide icons
+    lucide.createIcons();
 
-    const Button = ({ children, primary = true, className = "", type = "button", disabled = false, ...props }) => (
-      <button 
-        type={type}
-        disabled={disabled}
-        className={`group relative inline-flex items-center justify-center px-6 py-3.5 md:py-3 text-sm font-bold transition-all duration-300 rounded-full overflow-hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] focus-visible:ring-offset-2 focus-visible:ring-offset-[#000000] ${
-          primary 
-            ? 'text-black bg-[#FFD600] border border-transparent hover:bg-[#FFE44D] hover:shadow-[0_0_25px_rgba(255,214,0,0.4)]' 
-            : 'text-[#FFD600] bg-transparent hover:text-[#FFE44D] border border-[#FFD600]/[0.35] hover:border-[#FFD600] hover:bg-[#FFD600]/10 hover:shadow-[0_0_15px_rgba(255,214,0,0.15)]'
-        } ${disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''} ${className}`}
-        {...props}
-      >
-        <span className="relative flex items-center gap-2 pointer-events-none">
-          {children}
-        </span>
-      </button>
-    );
+    // 1. Navbar scroll backdrop blur state (>20px)
+    const navbar = document.getElementById('navbar');
+    function handleNavbarScroll() {
+      if (window.scrollY > 20) {
+        navbar.classList.add('bg-black/85', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/10');
+        navbar.classList.remove('bg-transparent', 'py-5');
+      } else {
+        navbar.classList.remove('bg-black/85', 'backdrop-blur-md', 'py-4', 'border-b', 'border-white/10');
+        navbar.classList.add('bg-transparent', 'py-5');
+      }
+    }
+    window.addEventListener('scroll', handleNavbarScroll, { passive: true });
+    handleNavbarScroll();
 
-    const GlassCard = ({ children, className = "" }) => (
-      <div className={`bg-brand-card1 backdrop-blur-md border border-[#FFD600]/[0.18] hover:border-[#FFD600]/[0.35] rounded-[1.5rem] p-6 md:p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-[#FFD600]/10 ${className}`}>
-        {children}
-      </div>
-    );
+    // 2. Mobile Menu Toggle & auto-close on link click
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const menuIcon = document.getElementById('menuIcon');
+    const closeIcon = document.getElementById('closeIcon');
+    const navLinks = document.querySelectorAll('.nav-link');
 
-    // --- MAIN SECTIONS ---
-
-    const Navbar = ({ scrollToSection }) => {
-      const [isOpen, setIsOpen] = useState(false);
-      const [scrolled, setScrolled] = useState(false);
-
-      useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 20);
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-      }, []);
-
-      // Prevent background scrolling when mobile menu is open
-      useEffect(() => {
-        if (isOpen) {
-          document.body.style.overflow = 'hidden';
-        } else {
-          document.body.style.overflow = 'unset';
-        }
-        return () => { document.body.style.overflow = 'unset'; };
-      }, [isOpen]);
-
-      const navLinks = ['Home', 'Services', 'Portfolio', 'Process', 'About', 'Contact'];
-
-      const handleNavClick = (e, link) => {
-        setIsOpen(false);
-        scrollToSection(e, link.toLowerCase());
-      };
-
-      return (
-        <nav className={`fixed top-0 w-full z-[90] transition-all duration-300 ${scrolled ? 'bg-[#000000]/90 backdrop-blur-xl border-b border-[#FFD600]/[0.18] py-4 shadow-[0_4px_30px_rgba(0,0,0,0.8)]' : 'bg-transparent py-5 md:py-6'}`}>
-          <div className="w-[min(100%-2rem,1500px)] mx-auto flex justify-between items-center">
-            <a href="#home" onClick={(e) => scrollToSection(e, 'home')} className="text-lg md:text-xl font-bold tracking-tighter text-[#FFD600] flex items-center gap-2 z-50 relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded-lg p-1 -ml-1">
-              <div className="w-8 h-8 rounded-lg bg-[#FFD600] flex items-center justify-center shrink-0 shadow-[0_0_15px_rgba(255,214,0,0.4)]">
-                <span className="text-black font-black leading-none text-sm pointer-events-none">N</span>
-              </div>
-              NeXgen <span className="text-[#FFD600]/50 font-light hidden sm:inline">Web Tech</span>
-            </a>
-
-            {/* Desktop Nav */}
-            <div className="hidden lg:flex items-center gap-8 xl:gap-10">
-              <div className="flex gap-6 xl:gap-8">
-                {navLinks.map((link) => (
-                  <a 
-                    key={link} 
-                    href={`#${link.toLowerCase()}`} 
-                    onClick={(e) => handleNavClick(e, link)}
-                    className="text-sm font-medium text-[#FFD600]/70 hover:text-[#FFE44D] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded px-1"
-                  >
-                    {link}
-                  </a>
-                ))}
-              </div>
-              <Button onClick={(e) => scrollToSection(e, 'contact')} className="!py-2.5 !px-6 text-xs">
-                Start a Project <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </div>
-
-            {/* Mobile Toggle */}
-            <button 
-              type="button"
-              className="lg:hidden text-[#FFD600] p-2 z-[100] relative focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded-lg" 
-              onClick={() => setIsOpen(!isOpen)}
-              aria-label={isOpen ? "Close Menu" : "Open Menu"}
-              aria-expanded={isOpen}
-            >
-              {isOpen ? <X className="w-6 h-6 pointer-events-none" /> : <Menu className="w-6 h-6 pointer-events-none" />}
-            </button>
-          </div>
-
-          {/* Mobile Menu */}
-          <div className={`fixed inset-0 bg-[#000000]/98 backdrop-blur-2xl z-[95] transition-all duration-500 ease-in-out lg:hidden ${isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
-            <div className="flex flex-col items-center justify-center h-full gap-8 px-6">
-              {navLinks.map((link, i) => (
-                <a 
-                  key={link} 
-                  href={`#${link.toLowerCase()}`} 
-                  onClick={(e) => handleNavClick(e, link)} 
-                  className="text-3xl font-bold text-[#FFD600]/70 hover:text-[#FFE44D] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded-lg px-2"
-                  style={{ transitionDelay: `${i * 50}ms` }}
-                >
-                  {link}
-                </a>
-              ))}
-              <Button className="mt-8 w-full max-w-xs !py-4" onClick={(e) => handleNavClick(e, 'contact')}>
-                Start a Project <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-            </div>
-          </div>
-        </nav>
-      );
-    };
-
-    const Hero = ({ scrollToSection }) => {
-      return (
-        <section id="home" className="relative min-h-[100svh] flex items-center pt-24 pb-16 overflow-hidden bg-brand-black">
-          {/* Background Grid & Glows */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,214,0,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,214,0,0.05)_1px,transparent_1px)] bg-[size:24px_24px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"></div>
-          <div className="absolute top-1/4 right-0 lg:-right-1/4 w-[50vw] max-w-[400px] h-[50vw] max-h-[400px] bg-[#FFD600]/10 rounded-full blur-[100px] md:blur-[128px] pointer-events-none"></div>
-          <div className="absolute bottom-1/4 -left-1/4 w-[50vw] max-w-[400px] h-[50vw] max-h-[400px] bg-[#FFE44D]/5 rounded-full blur-[100px] md:blur-[128px] pointer-events-none"></div>
-
-          <div className="w-[min(100%-2rem,1500px)] mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
-            <div className="max-w-3xl lg:max-w-2xl pt-10 lg:pt-0">
-              <FadeIn>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-1.5 rounded-full border border-[#FFD600]/[0.35] bg-brand-card2/80 backdrop-blur-sm mb-6 md:mb-8 pointer-events-none shadow-[0_0_15px_rgba(255,214,0,0.1)]">
-                  <span className="w-2 h-2 rounded-full bg-[#FFD600] animate-pulse shrink-0"></span>
-                  <span className="text-[10px] md:text-xs font-bold text-[#FFD600]/70 tracking-wide uppercase">NEXT-GENERATION WEB DEVELOPMENT</span>
-                </div>
-              </FadeIn>
-              
-              <FadeIn delay={100}>
-                <h1 className="text-[clamp(2.5rem,7vw,5.5rem)] font-bold text-[#FFD600] tracking-tight leading-[1.05] mb-6 lg:mb-8 pointer-events-none">
-                  Websites Built to Make Your Business <br className="hidden lg:block xl:hidden"/>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD600] to-[#FFE44D]">Stand Out.</span>
-                </h1>
-              </FadeIn>
-              
-              <FadeIn delay={200}>
-                <p className="text-[clamp(1rem,2vw,1.25rem)] text-[#FFD600]/70 mb-8 md:mb-10 leading-relaxed max-w-xl pointer-events-none">
-                  We design fast, modern and conversion-focused websites that turn ideas into powerful digital experiences.
-                </p>
-              </FadeIn>
-              
-              <FadeIn delay={300} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 mb-10 md:mb-12">
-                <Button onClick={(e) => scrollToSection(e, 'contact')} className="w-full sm:w-auto">
-                  Start Your Project <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                <Button primary={false} onClick={(e) => scrollToSection(e, 'portfolio')} className="w-full sm:w-auto">
-                  View Our Work
-                </Button>
-              </FadeIn>
-
-              <FadeIn delay={400}>
-                <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[11px] md:text-sm text-[#FFD600]/50 font-medium pointer-events-none">
-                  <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#FFD600] shrink-0" /> Modern Design</span>
-                  <span className="hidden sm:block w-1 h-1 rounded-full bg-[#FFD600]/50"></span>
-                  <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#FFD600] shrink-0 sm:hidden" /> Responsive</span>
-                  <span className="hidden sm:block w-1 h-1 rounded-full bg-[#FFD600]/50"></span>
-                  <span className="flex items-center gap-1.5"><CheckCircle2 className="w-4 h-4 text-[#FFD600] shrink-0 sm:hidden" /> Performance</span>
-                </div>
-              </FadeIn>
-            </div>
-
-            {/* Abstract Futuristic Visual - Hidden on small screens */}
-            <div className="hidden lg:block relative h-[500px] xl:h-[600px] w-full perspective-1000 pointer-events-none">
-              <FadeIn delay={300} className="absolute inset-0">
-                <div className="relative w-full h-full animate-float">
-                  {/* Main Center Panel */}
-                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] xl:w-72 h-[360px] xl:h-96 bg-brand-card1/80 backdrop-blur-xl border border-[#FFD600]/[0.18] rounded-2xl shadow-[0_0_40px_rgba(255,214,0,0.1)] overflow-hidden transform rotate-y-[-10deg] rotate-x-[5deg]">
-                    <div className="h-8 border-b border-[#FFD600]/[0.18] flex items-center px-4 gap-1.5 bg-brand-card2">
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#FFD600]/30"></div>
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#FFD600]/60"></div>
-                      <div className="w-2.5 h-2.5 rounded-full bg-[#FFD600]"></div>
-                    </div>
-                    <div className="p-6 space-y-4">
-                      <div className="h-4 w-1/3 bg-[#FFD600]/20 rounded"></div>
-                      <div className="h-32 w-full bg-gradient-to-br from-[#FFD600]/10 to-transparent rounded-lg border border-[#FFD600]/[0.18] relative overflow-hidden">
-                        <div className="absolute inset-0 bg-[linear-gradient(90deg,transparent_0%,rgba(255,214,0,0.1)_50%,transparent_100%)] w-[200%] animate-shimmer"></div>
-                      </div>
-                      <div className="space-y-2">
-                        <div className="h-3 w-full bg-[#FFD600]/10 rounded"></div>
-                        <div className="h-3 w-5/6 bg-[#FFD600]/10 rounded"></div>
-                        <div className="h-3 w-4/6 bg-[#FFD600]/10 rounded"></div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Floating Element 1 (Code) */}
-                  <div className="absolute top-1/4 -right-4 xl:right-4 w-48 bg-brand-card1/90 backdrop-blur-md border border-[#FFD600]/[0.18] rounded-xl p-4 shadow-[0_0_30px_rgba(255,214,0,0.15)] transform rotate-y-[15deg] translate-z-[50px] animate-float-delayed">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Code className="w-4 h-4 text-[#FFD600] shrink-0" />
-                      <span className="text-xs text-[#FFD600]/70 font-mono">index.jsx</span>
-                    </div>
-                    <div className="space-y-1.5">
-                      <div className="h-2 w-full bg-[#FFD600]/20 rounded"></div>
-                      <div className="h-2 w-4/5 bg-[#FFD600]/10 rounded ml-4"></div>
-                      <div className="h-2 w-3/5 bg-[#FFD600]/20 rounded ml-4"></div>
-                      <div className="h-2 w-1/2 bg-[#FFD600]/30 rounded"></div>
-                    </div>
-                  </div>
-
-                  {/* Floating Element 2 (Performance) */}
-                  <div className="absolute bottom-1/4 -left-4 xl:left-4 w-40 bg-brand-card1/90 backdrop-blur-md border border-[#FFD600]/[0.18] rounded-xl p-4 shadow-[0_0_30px_rgba(255,214,0,0.15)] transform rotate-y-[-20deg] translate-z-[80px] animate-float-fast">
-                    <div className="flex items-center gap-3 mb-2">
-                      <div className="w-8 h-8 rounded-full bg-[#FFD600]/20 flex items-center justify-center shrink-0 border border-[#FFD600]/[0.18]">
-                        <span className="text-[#FFD600] text-xs font-bold">99</span>
-                      </div>
-                      <div>
-                        <div className="text-xs text-[#FFD600] font-bold">Performance</div>
-                        <div className="text-[10px] text-[#FFD600]/50">Optimized</div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Connecting abstract lines */}
-                  <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" style={{ zIndex: -1 }}>
-                    <path d="M150,300 Q250,150 400,200" fill="none" stroke="url(#grad1)" strokeWidth="2" strokeDasharray="4 4" className="animate-dash hidden xl:block" />
-                    <defs>
-                      <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stopColor="#FFD600" stopOpacity="0.2" />
-                        <stop offset="100%" stopColor="#FFD600" stopOpacity="1" />
-                      </linearGradient>
-                    </defs>
-                  </svg>
-                </div>
-              </FadeIn>
-            </div>
-          </div>
-        </section>
-      );
-    };
-
-    const Services = ({ scrollToSection }) => {
-      const plans = [
-        {
-          num: "01",
-          title: "Business Websites",
-          value: "business",
-          desc: "Professional websites designed to establish credibility and help businesses grow online.",
-          price: "₹7,999",
-          popular: true,
-          icon: <Globe className="w-6 h-6 md:w-7 md:h-7 pointer-events-none" />
-        },
-        {
-          num: "02",
-          title: "Restaurant & Café",
-          value: "restaurant",
-          desc: "Beautiful digital experiences for restaurants, cafés and food businesses.",
-          price: "₹8,999",
-          popular: false,
-          icon: <Smartphone className="w-6 h-6 md:w-7 md:h-7 pointer-events-none" />
-        },
-        {
-          num: "03",
-          title: "Landing Pages",
-          value: "landing",
-          desc: "High-converting landing pages designed around a clear business goal.",
-          price: "₹4,999",
-          popular: false,
-          icon: <Rocket className="w-6 h-6 md:w-7 md:h-7 pointer-events-none" />
-        },
-        {
-          num: "04",
-          title: "Portfolio Websites",
-          value: "portfolio",
-          desc: "Elegant personal and professional portfolios designed to showcase your work.",
-          price: "₹5,999",
-          popular: false,
-          icon: <Users className="w-6 h-6 md:w-7 md:h-7 pointer-events-none" />
-        },
-        {
-          num: "05",
-          title: "Website Redesign",
-          value: "custom",
-          desc: "Transform outdated websites into modern, responsive and engaging digital experiences.",
-          price: "₹7,999",
-          popular: false,
-          icon: <Layers className="w-6 h-6 md:w-7 md:h-7 pointer-events-none" />
-        },
-        {
-          num: "06",
-          title: "Custom Web",
-          value: "custom",
-          desc: "Unique interactive websites tailored specifically to your brand and business workflow.",
-          price: "₹14,999+",
-          popular: false,
-          icon: <Code className="w-6 h-6 md:w-7 md:h-7 pointer-events-none" />
-        }
-      ];
-
-      return (
-        <section id="services" className="py-[clamp(4rem,10vw,8rem)] relative overflow-hidden bg-brand-black">
-          {/* Ambient Background Glow for Pricing Section */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] max-w-4xl h-[600px] bg-[#FFD600]/5 rounded-full blur-[100px] md:blur-[120px] pointer-events-none"></div>
-
-          <div className="w-[min(100%-2rem,1500px)] mx-auto relative z-10">
-            <FadeIn>
-              <SectionHeading 
-                subtitle="Plans & Pricing"
-                title="Premium Digital Solutions." 
-                centered={true}
-              />
-            </FadeIn>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 lg:gap-8 mt-10 md:mt-16">
-              {plans.map((plan, index) => (
-                <FadeIn key={index} delay={index * 50} className="h-full">
-                  <div className={`relative flex flex-col p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] transition-all duration-500 hover:-translate-y-1 md:hover:-translate-y-2 h-full group overflow-hidden md:overflow-visible ${
-                    plan.popular 
-                      ? 'bg-brand-card1 border border-[#FFD600]/60 shadow-[0_0_40px_-10px_rgba(255,214,0,0.2)] hover:shadow-[0_0_60px_-10px_rgba(255,214,0,0.4)] hover:border-[#FFD600]' 
-                      : 'bg-brand-card2 border border-[#FFD600]/[0.18] hover:bg-brand-card1 hover:border-[#FFD600]/[0.35]'
-                  }`}>
-                    
-                    {/* Decorative gradient overlay for popular card */}
-                    {plan.popular && (
-                      <div className="absolute inset-0 bg-gradient-to-b from-[#FFD600]/10 to-transparent pointer-events-none rounded-[1.5rem] md:rounded-[2rem]" />
-                    )}
-
-                    {/* Popular Badge */}
-                    {plan.popular && (
-                      <div className="absolute top-0 inset-x-0 md:-top-4 flex justify-center z-20 pointer-events-none">
-                        <div className="bg-[#FFD600] text-black text-[9px] md:text-[10px] font-black px-3 py-1 md:px-4 md:py-1.5 rounded-b-lg md:rounded-full tracking-widest uppercase shadow-[0_0_15px_rgba(255,214,0,0.4)] ring-0 md:ring-1 ring-[#FFD600]/50 flex items-center gap-1.5">
-                          <span className="hidden md:block w-1.5 h-1.5 rounded-full bg-black animate-pulse"></span>
-                          Most Popular
-                        </div>
-                      </div>
-                    )}
-
-                    <div className="relative z-10 flex flex-col h-full pt-4 md:pt-0">
-                      {/* Header: Icon & Number */}
-                      <div className="flex justify-between items-start mb-6 md:mb-8 pointer-events-none">
-                        <div className={`w-14 h-14 md:w-16 md:h-16 rounded-2xl flex items-center justify-center transition-transform duration-500 md:group-hover:scale-110 shrink-0 ${
-                          plan.popular 
-                            ? 'bg-[#FFD600]/20 text-[#FFD600] shadow-[0_0_20px_rgba(255,214,0,0.3)] border border-[#FFD600]/40' 
-                            : 'bg-brand-black border border-[#FFD600]/[0.18] text-[#FFD600]/70 group-hover:text-[#FFD600] group-hover:bg-[#FFD600]/5 group-hover:border-[#FFD600]/[0.35]'
-                        }`}>
-                          {plan.icon}
-                        </div>
-                        <span className="text-4xl md:text-5xl font-black text-[#FFD600]/5 md:group-hover:text-[#FFD600]/10 transition-colors tracking-tighter">
-                          {plan.num}
-                        </span>
-                      </div>
-
-                      {/* Title & Description */}
-                      <h3 className="text-xl md:text-2xl font-bold text-[#FFD600] mb-3 md:mb-4 tracking-tight pointer-events-none">
-                        {plan.title}
-                      </h3>
-                      <p className="text-[#FFD600]/70 text-sm leading-relaxed mb-6 md:mb-8 flex-grow pointer-events-none">
-                        {plan.desc}
-                      </p>
-
-                      <div className="mt-auto">
-                        {/* Elegant Divider */}
-                        <div className="w-full h-px bg-gradient-to-r from-transparent via-[#FFD600]/[0.18] to-transparent mb-6 md:mb-8 pointer-events-none"></div>
-
-                        {/* Pricing */}
-                        <div className="mb-6 md:mb-8 pointer-events-none">
-                          <div className="text-[10px] font-bold tracking-widest text-[#FFD600]/50 uppercase mb-1.5 md:mb-2">
-                            Starting At
-                          </div>
-                          <div className="flex items-baseline gap-1">
-                            <span className="text-[clamp(2.25rem,4vw,3.5rem)] font-black tracking-tighter leading-none text-[#FFD600]">
-                              {plan.price}
-                            </span>
-                          </div>
-                        </div>
-                        
-                        {/* CTA Button */}
-                        <Button 
-                          type="button"
-                          primary={plan.popular}
-                          onClick={(e) => scrollToSection(e, 'contact', plan.value)}
-                          className={`w-full ${!plan.popular ? '!border-[#FFD600]/[0.18]' : ''}`}
-                        >
-                          <span className="uppercase tracking-wide flex items-center gap-2 text-xs">
-                            Get a Quote <ArrowRight className="w-4 h-4 md:group-hover:translate-x-1 transition-transform" />
-                          </span>
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    };
-
-    const Features = () => {
-      const features = [
-        { title: "Modern Design", desc: "Clean, contemporary interfaces designed around your brand.", icon: <PenTool className="w-5 h-5 text-[#FFD600]"/> },
-        { title: "Responsive Experience", desc: "Optimized for phones, tablets and desktops.", icon: <Monitor className="w-5 h-5 text-[#FFD600]"/> },
-        { title: "Performance Focused", desc: "Fast-loading experiences with clean and efficient implementation.", icon: <Zap className="w-5 h-5 text-[#FFD600]"/> },
-        { title: "User Focused", desc: "Every interaction is designed with your visitors in mind.", icon: <Users className="w-5 h-5 text-[#FFD600]"/> },
-        { title: "Reliable Delivery", desc: "Clear communication and a structured development process.", icon: <CheckCircle2 className="w-5 h-5 text-[#FFD600]"/> }
-      ];
-
-      return (
-        <section className="py-[clamp(3rem,8vw,6rem)] bg-[#050505]/50 border-y border-[#FFD600]/[0.18] relative overflow-hidden">
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[80vw] max-w-[500px] h-[500px] bg-[#FFD600]/5 rounded-full blur-[100px] pointer-events-none"></div>
-          
-          <div className="w-[min(100%-2rem,1500px)] mx-auto relative z-10 pointer-events-none">
-            <FadeIn>
-              <SectionHeading subtitle="Why NeXgen Web Tech" title="More Than Just a Website." />
-            </FadeIn>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 lg:gap-6 mt-8">
-              {features.map((feature, i) => (
-                <FadeIn key={i} delay={i * 50}>
-                  <div className="p-6 rounded-2xl bg-brand-card2 border border-[#FFD600]/[0.18] hover:bg-brand-card1 hover:border-[#FFD600]/[0.35] hover:shadow-[0_0_20px_rgba(255,214,0,0.05)] transition-all h-full flex flex-col">
-                    <div className="mb-4 bg-brand-card1 w-10 h-10 rounded-lg flex items-center justify-center border border-[#FFD600]/[0.18] shrink-0">
-                      {feature.icon}
-                    </div>
-                    <h4 className="text-[#FFD600] font-bold mb-2">{feature.title}</h4>
-                    <p className="text-[#FFD600]/70 text-sm leading-relaxed">{feature.desc}</p>
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    };
-
-    const Portfolio = ({ scrollToSection }) => {
-      const projects = [
-        {
-          title: "Akiz Eatery",
-          category: "Restaurant Website",
-          desc: "A modern restaurant website designed to showcase the menu, atmosphere, location and customer experience.",
-          color: "from-[#FFD600]/10 to-[#FFD600]/5",
-          mockupType: "restaurant",
-          value: "restaurant"
-        },
-        {
-          title: "Nexus Corp",
-          category: "Business Website",
-          desc: "A professional digital presence designed to build trust and generate enquiries.",
-          color: "from-[#FFE44D]/10 to-transparent",
-          mockupType: "business",
-          value: "business"
-        },
-        {
-          title: "Aura Creative",
-          category: "Personal Brand",
-          desc: "A modern portfolio experience designed to showcase creative work.",
-          color: "from-[#FFD600]/10 to-[#FFD600]/5",
-          mockupType: "portfolio",
-          value: "portfolio"
-        }
-      ];
-
-      const Mockup = ({ type }) => {
-        return (
-          <div className="w-full h-full bg-brand-black rounded-t-xl border-x border-t border-[#FFD600]/[0.18] overflow-hidden relative flex flex-col">
-            {/* Browser header */}
-            <div className="h-4 md:h-6 bg-brand-card1 border-b border-[#FFD600]/[0.18] flex items-center px-2 md:px-3 gap-1 md:gap-1.5 shrink-0">
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#FFD600]/30"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#FFD600]/60"></div>
-              <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-[#FFD600]"></div>
-            </div>
-            
-            {/* Content area based on type */}
-            <div className="p-3 md:p-4 flex-grow overflow-hidden relative">
-              {type === 'restaurant' && (
-                <div className="space-y-2 md:space-y-4">
-                  <div className="h-20 md:h-32 bg-[#FFD600]/10 border border-[#FFD600]/[0.18] rounded-lg w-full relative overflow-hidden flex items-center justify-center">
-                    <span className="text-[#FFD600]/50 text-[10px] md:text-xs font-serif italic">Hero Image</span>
-                  </div>
-                  <div className="flex gap-2 md:gap-4">
-                    <div className="w-1/3 h-16 md:h-24 bg-[#FFD600]/5 border border-[#FFD600]/10 rounded"></div>
-                    <div className="w-1/3 h-16 md:h-24 bg-[#FFD600]/5 border border-[#FFD600]/10 rounded"></div>
-                    <div className="w-1/3 h-16 md:h-24 bg-[#FFD600]/5 border border-[#FFD600]/10 rounded"></div>
-                  </div>
-                </div>
-              )}
-              {type === 'business' && (
-                <div className="flex flex-col h-full gap-2 md:gap-4">
-                  <div className="flex justify-between items-center mb-1 md:mb-2">
-                    <div className="w-6 md:w-8 h-3 md:h-4 bg-[#FFD600]/30 rounded"></div>
-                    <div className="flex gap-1 md:gap-2">
-                      <div className="w-4 md:w-6 h-1.5 md:h-2 bg-[#FFD600]/20 rounded"></div>
-                      <div className="w-4 md:w-6 h-1.5 md:h-2 bg-[#FFD600]/20 rounded"></div>
-                    </div>
-                  </div>
-                  <div className="w-3/4 h-5 md:h-8 bg-[#FFD600]/10 border border-[#FFD600]/10 rounded mb-1 md:mb-2"></div>
-                  <div className="w-1/2 h-2 md:h-3 bg-[#FFD600]/20 rounded mb-2 md:mb-4"></div>
-                  <div className="grid grid-cols-2 gap-2 md:gap-3">
-                     <div className="h-12 md:h-20 bg-[#FFD600]/20 border border-[#FFD600]/40 rounded"></div>
-                     <div className="h-12 md:h-20 bg-[#FFD600]/5 border border-[#FFD600]/10 rounded"></div>
-                  </div>
-                </div>
-              )}
-              {type === 'portfolio' && (
-                <div className="space-y-2 md:space-y-3">
-                  <div className="flex items-center gap-2 md:gap-4">
-                    <div className="w-8 h-8 md:w-12 md:h-12 rounded-full bg-[#FFD600]/20 border border-[#FFD600]/30 shrink-0"></div>
-                    <div className="space-y-1 md:space-y-2 flex-1">
-                      <div className="h-3 md:h-4 w-1/3 bg-[#FFD600]/30 rounded"></div>
-                      <div className="h-1.5 md:h-2 w-1/4 bg-[#FFD600]/20 rounded"></div>
-                    </div>
-                  </div>
-                  <div className="columns-2 gap-2 md:gap-3 space-y-2 md:space-y-3 mt-2 md:mt-4">
-                     <div className="w-full h-16 md:h-24 bg-[#FFD600]/10 border border-[#FFD600]/20 rounded-lg"></div>
-                     <div className="w-full h-20 md:h-32 bg-[#FFD600]/5 border border-[#FFD600]/10 rounded-lg"></div>
-                     <div className="w-full h-12 md:h-20 bg-[#FFD600]/5 border border-[#FFD600]/10 rounded-lg"></div>
-                  </div>
-                </div>
-              )}
-              
-              <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-brand-black to-transparent pointer-events-none"></div>
-            </div>
-          </div>
-        );
-      };
-
-      return (
-        <section id="portfolio" className="py-[clamp(4rem,10vw,8rem)] relative bg-brand-black">
-          <div className="w-[min(100%-2rem,1500px)] mx-auto">
-            <FadeIn>
-              <SectionHeading subtitle="Selected Work" title="Digital experiences designed to make an impact." />
-            </FadeIn>
-            
-            <div className="space-y-16 md:space-y-24 lg:space-y-32 mt-10 md:mt-16">
-              {projects.map((project, index) => (
-                <FadeIn key={index} delay={100}>
-                  <div className={`flex flex-col lg:flex-row gap-8 lg:gap-16 xl:gap-24 items-center ${index % 2 !== 0 ? 'lg:flex-row-reverse' : ''}`}>
-                    
-                    {/* Project Info */}
-                    <div className="w-full lg:w-5/12 space-y-4 md:space-y-6 text-center lg:text-left">
-                      <div className="text-xs md:text-sm font-bold text-[#FFD600] mb-1 md:mb-2 pointer-events-none uppercase tracking-wide">{project.category}</div>
-                      <h3 className="text-[clamp(1.75rem,4vw,2.5rem)] font-bold text-[#FFD600] tracking-tight pointer-events-none">{project.title}</h3>
-                      <p className="text-[#FFD600]/70 text-sm md:text-base leading-relaxed max-w-lg mx-auto lg:mx-0 pointer-events-none">
-                        {project.desc}
-                      </p>
-                      <div className="flex justify-center lg:justify-start gap-4 md:gap-6 pt-2 md:pt-4">
-                        <button 
-                          type="button" 
-                          onClick={(e) => scrollToSection(e, 'contact', project.value)}
-                          className="text-[#FFD600] text-sm md:text-base font-bold flex items-center gap-2 group hover:text-[#FFE44D] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded p-1 -ml-1"
-                        >
-                          View Project <ArrowRight className="w-4 h-4 md:group-hover:translate-x-1 transition-transform" />
-                        </button>
-                        <span className="text-[#FFD600]/30 pointer-events-none">|</span>
-                        <button 
-                          type="button" 
-                          onClick={(e) => scrollToSection(e, 'contact', project.value)}
-                          className="text-[#FFD600]/70 text-sm md:text-base font-medium hover:text-[#FFE44D] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded p-1"
-                        >
-                          Case Study
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Project Mockup */}
-                    <div className="w-full lg:w-7/12 mt-6 lg:mt-0 pointer-events-none">
-                      <div className={`aspect-[4/3] md:aspect-[16/10] lg:aspect-[16/10] xl:aspect-[21/10] rounded-[1.5rem] p-4 md:p-8 xl:p-12 bg-gradient-to-br ${project.color} border border-[#FFD600]/[0.18] relative overflow-hidden group`}>
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-[#FFD600]/[0.02] rotate-12 blur-2xl md:blur-3xl rounded-full transition-transform duration-1000 md:group-hover:rotate-[20deg] md:group-hover:scale-110"></div>
-                        
-                        <div className="w-full h-full relative z-10 shadow-2xl shadow-black/50 transform transition-transform duration-700 md:group-hover:-translate-y-2 flex items-end">
-                           <Mockup type={project.mockupType} />
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    };
-
-    const Process = () => {
-      const steps = [
-        { title: "Discover", desc: "We understand your business, audience and goals." },
-        { title: "Plan", desc: "We define the structure, content and visual direction." },
-        { title: "Design", desc: "We create a polished interface aligned with your brand." },
-        { title: "Develop", desc: "We turn the design into a responsive, functional website." },
-        { title: "Launch", desc: "We test, optimize and prepare your website for launch." }
-      ];
-
-      return (
-        <section id="process" className="py-[clamp(4rem,10vw,8rem)] bg-brand-card1 border-t border-[#FFD600]/[0.18] pointer-events-none">
-          <div className="w-[min(100%-2rem,1500px)] mx-auto">
-            <FadeIn>
-              <SectionHeading subtitle="Our Methodology" title="From Idea to Launch." centered />
-            </FadeIn>
-
-            <div className="relative mt-12 md:mt-20 max-w-6xl mx-auto px-2 md:px-0">
-              {/* Connecting Line (Desktop) */}
-              <div className="hidden md:block absolute top-6 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#FFD600]/30 to-transparent"></div>
-              
-              {/* Connecting Line (Mobile) */}
-              <div className="md:hidden absolute left-[19px] top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#FFD600]/30 to-transparent"></div>
-
-              <div className="flex flex-col md:flex-row justify-between gap-10 md:gap-4 relative z-10">
-                {steps.map((step, i) => (
-                  <FadeIn key={i} delay={i * 100} className="flex md:flex-col items-start md:items-center gap-5 md:gap-6 flex-1">
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-brand-card2 border-2 border-[#FFD600]/[0.35] flex items-center justify-center text-xs md:text-sm font-bold text-[#FFD600] z-10 shrink-0 shadow-[0_0_15px_rgba(255,214,0,0.15)]">
-                      0{i + 1}
-                    </div>
-                    <div className="md:text-center pt-1.5 md:pt-0 max-w-[250px] md:max-w-none">
-                      <h4 className="text-[#FFD600] font-bold mb-1.5 md:mb-2 text-base md:text-lg">{step.title}</h4>
-                      <p className="text-sm text-[#FFD600]/70 leading-relaxed">{step.desc}</p>
-                    </div>
-                  </FadeIn>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      );
-    };
-
-    const About = ({ scrollToSection }) => {
-      return (
-        <section id="about" className="py-[clamp(4rem,10vw,8rem)] relative overflow-hidden bg-brand-black">
-          {/* Decorative bg element */}
-          <div className="absolute right-0 bottom-0 w-[80vw] max-w-[800px] h-[80vw] max-h-[800px] bg-[radial-gradient(circle_at_center,rgba(255,214,0,0.05)_0,transparent_50%)] pointer-events-none"></div>
-
-          <div className="w-[min(100%-2rem,1500px)] mx-auto relative z-10">
-            <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-24 items-center">
-              <FadeIn>
-                <SectionHeading subtitle="Who We Are" title="Building the Next Generation of the Web." />
-                <p className="text-base md:text-lg text-[#FFD600]/70 leading-relaxed mb-8 max-w-2xl pointer-events-none">
-                  NeXgen Web Tech is a modern web development studio focused on creating premium digital experiences for businesses and individuals. We combine clean design, modern technology and thoughtful user experience to create websites that don't simply look good — they work.
-                </p>
-                <Button onClick={(e) => scrollToSection(e, 'process')} className="w-full sm:w-auto">Learn More About Us</Button>
-              </FadeIn>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 lg:mt-0 pointer-events-none">
-                {[
-                  { label: "100%", text: "Responsive" },
-                  { label: "Modern", text: "User Interface" },
-                  { label: "Fast", text: "Performance Focused" },
-                  { label: "You", text: "Client First Approach" }
-                ].map((stat, i) => (
-                  <FadeIn key={i} delay={i * 50} className="h-full">
-                    <GlassCard className="text-center py-8 md:py-10 !px-4 hover:border-[#FFD600]/[0.35] hover:bg-[#FFD600]/5 h-full flex flex-col justify-center">
-                      <div className="text-3xl md:text-4xl font-black text-[#FFD600] mb-2 drop-shadow-[0_0_10px_rgba(255,214,0,0.3)]">
-                        {stat.label}
-                      </div>
-                      <div className="text-[10px] md:text-xs text-[#FFD600]/70 font-bold uppercase tracking-wider">
-                        {stat.text}
-                      </div>
-                    </GlassCard>
-                  </FadeIn>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-      );
-    };
-
-    const Testimonials = () => {
-      return (
-        <section className="py-[clamp(4rem,10vw,8rem)] bg-brand-card1 border-y border-[#FFD600]/[0.18] relative overflow-hidden pointer-events-none">
-          <div className="w-[min(100%-2rem,1500px)] mx-auto relative z-10">
-            <FadeIn>
-              <SectionHeading subtitle="Client Feedback" title="What They Say." centered />
-            </FadeIn>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 md:mt-16">
-              {[1, 2, 3].map((_, i) => (
-                <FadeIn key={i} delay={i * 100} className="h-full">
-                  <GlassCard className="h-full flex flex-col justify-between !p-6 md:!p-8 !bg-brand-card2">
-                    <div>
-                       <div className="flex gap-1 mb-5 md:mb-6">
-                        {[1,2,3,4,5].map(star => (
-                           <svg key={star} className="w-3.5 h-3.5 md:w-4 md:h-4 text-[#FFD600]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                        ))}
-                      </div>
-                      <div className="space-y-2 mb-8">
-                        <div className="h-2 w-full bg-[#FFD600]/10 rounded"></div>
-                        <div className="h-2 w-full bg-[#FFD600]/10 rounded"></div>
-                        <div className="h-2 w-4/5 bg-[#FFD600]/10 rounded"></div>
-                        <div className="h-2 w-5/6 bg-[#FFD600]/10 rounded"></div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 md:gap-4 mt-auto">
-                      <div className="w-10 h-10 rounded-full bg-brand-card1 border border-[#FFD600]/[0.18] flex items-center justify-center shrink-0">
-                        <Users className="w-4 h-4 text-[#FFD600]/70" />
-                      </div>
-                      <div>
-                        <div className="w-24 md:w-32 h-2.5 md:h-3 bg-[#FFD600]/20 rounded mb-1.5"></div>
-                        <div className="w-16 md:w-20 h-1.5 md:h-2 bg-[#FFD600]/10 rounded"></div>
-                      </div>
-                    </div>
-                    <div className="absolute top-4 right-4 text-[10px] md:text-xs font-bold text-[#FFD600]/50 bg-brand-card1 px-2 py-1 rounded border border-[#FFD600]/[0.18]">Space Reserved</div>
-                  </GlassCard>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    };
-
-    const CTASection = ({ scrollToSection }) => {
-      return (
-        <section className="py-[clamp(5rem,12vw,10rem)] relative overflow-hidden bg-brand-black">
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#FFD600]/10 pointer-events-none"></div>
-          <div className="w-[min(100%-2rem,900px)] mx-auto relative z-10 text-center px-4">
-            <FadeIn>
-              <h2 className="text-[clamp(2.25rem,6vw,4.5rem)] font-bold text-[#FFD600] mb-4 md:mb-6 tracking-tight leading-tight pointer-events-none">
-                Have a Project in Mind?
-              </h2>
-              <p className="text-base md:text-xl text-[#FFD600]/70 mb-8 md:mb-10 max-w-2xl mx-auto leading-relaxed pointer-events-none">
-                Let's turn your idea into a digital experience that feels as good as it looks.
-              </p>
-              <div className="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
-                <Button onClick={(e) => scrollToSection(e, 'contact')} className="!px-8 !py-4 text-base w-full sm:w-auto">
-                  Start Your Project <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-                <Button primary={false} onClick={(e) => scrollToSection(e, 'portfolio')} className="!px-8 !py-4 text-base w-full sm:w-auto">
-                  View Portfolio
-                </Button>
-              </div>
-            </FadeIn>
-          </div>
-        </section>
-      );
-    };
-
-    const Contact = ({ preselectedService }) => {
-      const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        business: '',
-        type: '',
-        budget: '',
-        details: ''
-      });
-      const [status, setStatus] = useState('idle');
-      const [isModalOpen, setIsModalOpen] = useState(false);
-
-      // Pre-fill type when passed from props
-      useEffect(() => {
-        if (preselectedService) {
-          setFormData(prev => ({ ...prev, type: preselectedService }));
-        }
-      }, [preselectedService]);
-
-      const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-      };
-
-      const handleFormSubmit = (e) => {
-        e.preventDefault(); // Native HTML5 validation runs before this
-        setIsModalOpen(true);
-      };
-
-      const confirmSubmission = async (isLegal) => {
-        setIsModalOpen(false);
-        
-        if (!isLegal) {
-          setStatus('rejected');
-          setTimeout(() => setStatus('idle'), 6000);
-          return;
-        }
-
-        setStatus('submitting');
-        
-        try {
-          const response = await fetch("https://formsubmit.co/ajax/all.in.one.hub999@gmail.com", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-            body: JSON.stringify({
-              _captcha: "false",
-              _subject: "New NeXgen Web Tech Project Request — Legal Use Confirmed",
-              "Client Name": formData.name,
-              "Client Email": formData.email,
-              "Business / Brand Name": formData.business || "Not Provided",
-              "Project Type": formData.type,
-              "Estimated Budget Range": formData.budget,
-              "Project Details": formData.details,
-              "Legal-use confirmation": "YES",
-              "Submission Date/Time": new Date().toLocaleString()
-            })
-          });
-
-          if (response.ok) {
-            setStatus('success');
-            setFormData({ name: '', email: '', business: '', type: '', budget: '', details: '' });
-            setTimeout(() => setStatus('idle'), 5000);
-          } else {
-            setStatus('error');
-            setTimeout(() => setStatus('idle'), 5000);
-          }
-        } catch (error) {
-          setStatus('error');
-          setTimeout(() => setStatus('idle'), 5000);
-        }
-      };
-
-      return (
-        <>
-          <section id="contact" className="py-[clamp(4rem,10vw,8rem)] bg-brand-black border-t border-[#FFD600]/[0.18] relative overflow-hidden">
-            <div className="w-[min(100%-2rem,1500px)] mx-auto relative z-10">
-              <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 xl:gap-24">
-                <FadeIn>
-                  <SectionHeading subtitle="Get in touch" title="Let's build something great." />
-                  <div className="space-y-6 md:space-y-8 mt-8 md:mt-12">
-                    <div className="flex items-start gap-4 md:gap-5">
-                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-brand-card2 border border-[#FFD600]/[0.18] flex items-center justify-center text-[#FFD600] shrink-0 pointer-events-none">
-                        <Mail className="w-4 h-4 md:w-5 md:h-5" />
-                      </div>
-                      <div>
-                        <h4 className="text-[#FFD600] font-bold mb-1 text-sm md:text-base pointer-events-none">Email Us</h4>
-                        <p className="text-[#FFD600]/70 text-xs md:text-sm mb-1.5 md:mb-2 pointer-events-none">For general enquiries and project requests.</p>
-                        <a href="mailto:all.in.one.hub999@gmail.com" className="text-[#FFD600] hover:text-[#FFE44D] text-sm font-bold transition-colors break-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded px-1 -ml-1">all.in.one.hub999@gmail.com</a>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-start gap-4 md:gap-5">
-                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-brand-card2 border border-[#FFD600]/[0.18] flex items-center justify-center text-[#FFD600] shrink-0 pointer-events-none">
-                        <MessageCircle className="w-4 h-4 md:w-5 md:h-5" />
-                      </div>
-                      <div>
-                        <h4 className="text-[#FFD600] font-bold mb-1 text-sm md:text-base pointer-events-none">WhatsApp</h4>
-                        <p className="text-[#FFD600]/70 text-xs md:text-sm mb-1.5 md:mb-2 pointer-events-none">Message us directly for a quick response.</p>
-                        <a href="https://wa.me/918250535157" target="_blank" rel="noopener noreferrer" className="text-[#FFD600] hover:text-[#FFE44D] text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded px-1 -ml-1">+91 82505 35157</a>
-                      </div>
-                    </div>
-
-                    <div className="flex items-start gap-4 md:gap-5">
-                      <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-brand-card2 border border-[#FFD600]/[0.18] flex items-center justify-center text-[#FFD600] shrink-0 pointer-events-none">
-                        <Instagram className="w-4 h-4 md:w-5 md:h-5" />
-                      </div>
-                      <div>
-                        <h4 className="text-[#FFD600] font-bold mb-1 text-sm md:text-base pointer-events-none">Instagram</h4>
-                        <p className="text-[#FFD600]/70 text-xs md:text-sm mb-1.5 md:mb-2 pointer-events-none">Follow our latest work and studio updates.</p>
-                        <a href="https://www.instagram.com/web_developer.ui/" target="_blank" rel="noopener noreferrer" className="text-[#FFD600] hover:text-[#FFE44D] text-sm font-bold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded px-1 -ml-1">@web_developer.ui</a>
-                      </div>
-                    </div>
-                  </div>
-                </FadeIn>
-
-                <FadeIn delay={100} className="w-full">
-                  <form onSubmit={handleFormSubmit} className="bg-brand-card1/80 backdrop-blur-md border border-[#FFD600]/[0.18] rounded-2xl p-5 md:p-8 space-y-5 md:space-y-6 w-full box-border relative shadow-[0_0_20px_rgba(255,214,0,0.05)]">
-                    {/* Disabler overlay when submitting/success to prevent multi clicks */}
-                    {(status === 'submitting' || status === 'success') && (
-                       <div className="absolute inset-0 z-20 rounded-2xl cursor-not-allowed"></div>
-                    )}
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 relative z-10">
-                      <div className="space-y-2 w-full">
-                        <label className="text-[10px] md:text-xs font-bold text-[#FFD600] uppercase tracking-wider block">Name *</label>
-                        <input type="text" name="name" value={formData.name} onChange={handleChange} required className="w-full box-border bg-brand-card2 border border-[#FFD600]/20 rounded-lg px-4 py-3 text-sm md:text-base text-[#FFD600] focus:outline-none focus:border-[#FFD600]/60 focus:ring-1 focus:ring-[#FFD600]/20 transition-all placeholder-[#FFD600]/45" placeholder="John Doe" />
-                      </div>
-                      <div className="space-y-2 w-full">
-                        <label className="text-[10px] md:text-xs font-bold text-[#FFD600] uppercase tracking-wider block">Email *</label>
-                        <input type="email" name="email" value={formData.email} onChange={handleChange} required className="w-full box-border bg-brand-card2 border border-[#FFD600]/20 rounded-lg px-4 py-3 text-sm md:text-base text-[#FFD600] focus:outline-none focus:border-[#FFD600]/60 focus:ring-1 focus:ring-[#FFD600]/20 transition-all placeholder-[#FFD600]/45" placeholder="john@example.com" />
-                      </div>
-                    </div>
-                    
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 md:gap-6 relative z-10">
-                      <div className="space-y-2 w-full">
-                        <label className="text-[10px] md:text-xs font-bold text-[#FFD600] uppercase tracking-wider block">Business / Brand</label>
-                        <input type="text" name="business" value={formData.business} onChange={handleChange} className="w-full box-border bg-brand-card2 border border-[#FFD600]/20 rounded-lg px-4 py-3 text-sm md:text-base text-[#FFD600] focus:outline-none focus:border-[#FFD600]/60 focus:ring-1 focus:ring-[#FFD600]/20 transition-all placeholder-[#FFD600]/45" placeholder="Your Company" />
-                      </div>
-                      <div className="space-y-2 w-full">
-                        <label className="text-[10px] md:text-xs font-bold text-[#FFD600] uppercase tracking-wider block">Project Type *</label>
-                        <select name="type" value={formData.type} onChange={handleChange} required className="w-full box-border bg-brand-card2 border border-[#FFD600]/20 rounded-lg px-4 py-3 text-sm md:text-base text-[#FFD600] focus:outline-none focus:border-[#FFD600]/60 focus:ring-1 focus:ring-[#FFD600]/20 transition-all appearance-none cursor-pointer">
-                          <option value="" disabled className="text-[#FFD600]/50">Select a type...</option>
-                          <option value="business">Business Website</option>
-                          <option value="restaurant">Restaurant / Café</option>
-                          <option value="landing">Landing Page</option>
-                          <option value="portfolio">Portfolio</option>
-                          <option value="custom">Custom Web Experience</option>
-                        </select>
-                      </div>
-                    </div>
-
-                     <div className="space-y-2 w-full relative z-10">
-                        <label className="text-[10px] md:text-xs font-bold text-[#FFD600] uppercase tracking-wider block">Budget Range *</label>
-                        <select name="budget" value={formData.budget} onChange={handleChange} required className="w-full box-border bg-brand-card2 border border-[#FFD600]/20 rounded-lg px-4 py-3 text-sm md:text-base text-[#FFD600] focus:outline-none focus:border-[#FFD600]/60 focus:ring-1 focus:ring-[#FFD600]/20 transition-all appearance-none cursor-pointer">
-                          <option value="" disabled className="text-[#FFD600]/50">Select a range...</option>
-                          <option value="small">Under $1k</option>
-                          <option value="medium">$1k - $3k</option>
-                          <option value="large">$3k - $10k+</option>
-                        </select>
-                      </div>
-
-                    <div className="space-y-2 w-full relative z-10">
-                      <label className="text-[10px] md:text-xs font-bold text-[#FFD600] uppercase tracking-wider block">Project Details *</label>
-                      <textarea name="details" value={formData.details} onChange={handleChange} required rows="4" className="w-full box-border bg-brand-card2 border border-[#FFD600]/20 rounded-lg px-4 py-3 text-sm md:text-base text-[#FFD600] focus:outline-none focus:border-[#FFD600]/60 focus:ring-1 focus:ring-[#FFD600]/20 transition-all placeholder-[#FFD600]/45 resize-none" placeholder="Tell us about your goals, features you need, etc..."></textarea>
-                    </div>
-
-                    {status === 'success' && (
-                      <div className="p-4 rounded-lg bg-[#FFD600]/10 border border-[#FFD600]/30 text-[#FFD600] text-sm md:text-base text-center font-bold relative z-10">
-                        Project request sent successfully! We'll be in touch soon.
-                      </div>
-                    )}
-                    
-                    {status === 'error' && (
-                      <div className="p-4 rounded-lg bg-[#FFD600]/10 border border-[#FFD600]/30 text-[#FFD600] text-sm md:text-base text-center font-bold relative z-10">
-                        Oops! Something went wrong. Please try again or email us directly.
-                      </div>
-                    )}
-
-                    {status === 'rejected' && (
-                      <div className="p-4 rounded-lg bg-[#FFD600]/10 border border-[#FFD600]/30 text-[#FFD600] text-sm md:text-base text-center font-bold relative z-10">
-                        Project request not submitted. Our services are limited to legal use.
-                      </div>
-                    )}
-
-                    <Button type="submit" disabled={status === 'submitting' || status === 'success'} className="w-full !py-4 text-sm md:text-base relative z-10">
-                      {status === 'submitting' ? (
-                        'Sending Request...'
-                      ) : (
-                        <>Send Project Request <ArrowRight className="w-4 h-4 md:w-5 md:h-5 shrink-0 pointer-events-none" /></>
-                      )}
-                    </Button>
-                  </form>
-                </FadeIn>
-              </div>
-            </div>
-          </section>
-
-          {/* Legal Confirmation Modal */}
-          <div className={`fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-6 transition-all duration-300 ${isModalOpen ? 'opacity-100 visible' : 'opacity-0 invisible pointer-events-none'}`}>
-            {/* Blurred Overlay */}
-            <div 
-              className="absolute inset-0 bg-[#000000]/90 backdrop-blur-md transition-opacity duration-300" 
-              onClick={() => {
-                if(status !== 'submitting') setIsModalOpen(false);
-              }}
-            ></div>
-            
-            {/* Modal Card */}
-            <div className={`relative w-full max-w-md bg-brand-card1 border border-[#FFD600]/[0.35] shadow-[0_0_50px_rgba(255,214,0,0.15)] rounded-2xl p-6 md:p-8 transform transition-all duration-400 ease-out ${isModalOpen ? 'scale-100 translate-y-0' : 'scale-95 translate-y-8'}`}>
-              <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-[#FFD600]/50 to-transparent pointer-events-none"></div>
-              
-              <h3 className="text-xl md:text-2xl font-bold text-[#FFD600] tracking-tight mb-3 pointer-events-none">Required Confirmation</h3>
-              
-              <p className="text-[#FFD600]/70 text-base md:text-lg leading-relaxed mb-8 font-medium pointer-events-none">
-                Are you want to build a website for Legal use only?
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 relative z-20">
-                <Button type="button" primary={false} onClick={() => confirmSubmission(false)} disabled={status === 'submitting'} className="w-full !py-3.5 bg-brand-card2 hover:border-[#FFD600]">
-                  NO
-                </Button>
-                <Button type="button" primary={true} onClick={() => confirmSubmission(true)} disabled={status === 'submitting'} className="w-full !py-3.5">
-                  YES
-                </Button>
-              </div>
-            </div>
-          </div>
-        </>
-      );
-    };
-
-    const Footer = ({ scrollToSection }) => {
-      return (
-        <footer className="bg-brand-black py-10 md:py-12 border-t border-[#FFD600]/[0.18] relative z-10">
-          <div className="w-[min(100%-2rem,1500px)] mx-auto">
-            <div className="flex flex-col md:flex-row justify-between items-center md:items-start gap-6 md:gap-8 mb-8 md:mb-10 text-center md:text-left">
-              <div>
-                 <a href="#home" onClick={(e) => scrollToSection(e, 'home')} className="text-lg md:text-xl font-bold tracking-tighter text-[#FFD600] flex justify-center md:justify-start items-center gap-2 mb-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded p-1 -ml-1">
-                  <div className="w-6 h-6 rounded bg-[#FFD600] flex items-center justify-center shrink-0 pointer-events-none shadow-[0_0_10px_rgba(255,214,0,0.3)]">
-                    <span className="text-black text-xs font-black leading-none pointer-events-none">N</span>
-                  </div>
-                  NeXgen Web Tech
-                </a>
-                <p className="text-[#FFD600]/50 text-xs md:text-sm max-w-xs mx-auto md:mx-0 pointer-events-none">Building modern digital experiences for the next generation.</p>
-              </div>
-              
-              <div className="flex gap-4">
-                <a href="https://www.instagram.com/web_developer.ui/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-brand-card2 border border-[#FFD600]/[0.18] flex items-center justify-center text-[#FFD600]/70 hover:text-[#FFE44D] hover:border-[#FFE44D] hover:bg-[#FFD600]/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600]" aria-label="Follow us on Instagram">
-                  <Instagram className="w-4 h-4 md:w-5 md:h-5 pointer-events-none" />
-                </a>
-                <a href="mailto:all.in.one.hub999@gmail.com" className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-brand-card2 border border-[#FFD600]/[0.18] flex items-center justify-center text-[#FFD600]/70 hover:text-[#FFE44D] hover:border-[#FFE44D] hover:bg-[#FFD600]/10 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600]" aria-label="Send us an Email">
-                  <Mail className="w-4 h-4 md:w-5 md:h-5 pointer-events-none" />
-                </a>
-              </div>
-            </div>
-            
-            <div className="border-t border-[#FFD600]/[0.18] pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6 text-xs md:text-sm text-[#FFD600]/70 font-bold">
-              <div className="flex flex-wrap justify-center gap-x-4 md:gap-x-6 gap-y-2">
-                {['Home', 'Services', 'Portfolio', 'About', 'Contact'].map(link => (
-                   <a 
-                     key={link} 
-                     href={`#${link.toLowerCase()}`} 
-                     onClick={(e) => scrollToSection(e, link.toLowerCase())}
-                     className="hover:text-[#FFE44D] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded px-1"
-                   >
-                     {link}
-                   </a>
-                ))}
-              </div>
-              <div className="flex gap-4 md:gap-6">
-                <a href="#home" onClick={(e) => scrollToSection(e, 'home')} className="hover:text-[#FFE44D] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded px-1">Privacy Policy</a>
-                <a href="#home" onClick={(e) => scrollToSection(e, 'home')} className="hover:text-[#FFE44D] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD600] rounded px-1">Terms</a>
-              </div>
-            </div>
-          </div>
-        </footer>
-      );
-    };
-
-    function App() {
-      const [preselectedService, setPreselectedService] = useState("");
-
-      const scrollToSection = (e, id, service = null) => {
-        if (e) e.preventDefault();
-        
-        // If it's the contact section and a service is passed, update the form state
-        if (id === 'contact' && service) {
-          setPreselectedService(service);
-        }
-
-        const element = document.getElementById(id);
-        if (element) {
-          // Calculate offset taking sticky navbar into account
-          const headerOffset = 85; 
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          
-          window.scrollTo({
-             top: offsetPosition,
-             behavior: "smooth"
-          });
-        }
-      };
-
-      return (
-        <main className="w-full max-w-[100vw] overflow-x-hidden">
-          <Navbar scrollToSection={scrollToSection} />
-          <Hero scrollToSection={scrollToSection} />
-          <Services scrollToSection={scrollToSection} />
-          <Features />
-          <Portfolio scrollToSection={scrollToSection} />
-          <Process />
-          <About scrollToSection={scrollToSection} />
-          <Testimonials />
-          <CTASection scrollToSection={scrollToSection} />
-          <Contact preselectedService={preselectedService} />
-          <Footer scrollToSection={scrollToSection} />
-        </main>
-      );
+    function toggleMobileMenu() {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      if (isOpen) {
+        mobileMenu.classList.add('hidden');
+        menuIcon.classList.remove('hidden');
+        closeIcon.classList.add('hidden');
+      } else {
+        mobileMenu.classList.remove('hidden');
+        menuIcon.classList.add('hidden');
+        closeIcon.classList.remove('hidden');
+      }
     }
 
-    // Render the React application
-    const root = createRoot(document.getElementById('root'));
-    root.render(<App />);
+    mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (!mobileMenu.classList.contains('hidden')) {
+          toggleMobileMenu();
+        }
+      });
+    });
+
+    // 3. Scroll Reveal Animations (FadeInUp wrapper)
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const revealObserver = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.fade-in-up').forEach(el => {
+      revealObserver.observe(el);
+    });
+
+    // 4. FAQ Accordion Logic with Plus-to-X rotation & CSS grid expansion
+    const accordionItems = document.querySelectorAll('.accordion-item');
+
+    accordionItems.forEach(item => {
+      const header = item.querySelector('.accordion-header');
+      const content = item.querySelector('.accordion-content');
+      const icon = item.querySelector('.accordion-icon');
+
+      header.addEventListener('click', () => {
+        const isOpen = content.classList.contains('open');
+
+        accordionItems.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.querySelector('.accordion-content').classList.remove('open');
+            otherItem.querySelector('.accordion-icon').classList.remove('rotate-45');
+          }
+        });
+
+        if (isOpen) {
+          content.classList.remove('open');
+          icon.classList.remove('rotate-45');
+        } else {
+          content.classList.add('open');
+          icon.classList.add('rotate-45');
+        }
+      });
+    });
   </script>
-</body>
-</html>
+</body></html>
